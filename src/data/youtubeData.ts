@@ -1,0 +1,194 @@
+import { VideoItem, ChannelInfo } from '../types';
+
+export const CHANNEL_INFO: ChannelInfo = {
+  title: 'Coco Kids World',
+  handle: '@CocoKidsWorld-h1o',
+  channelUrl: 'https://youtube.com/@CocoKidsWorld-h1o',
+  avatarUrl: '/channel-avatar.jpg',
+  subscribersBadge: 'Official YouTube Channel',
+  description:
+    'Coco Kids World is a fun and colorful kids entertainment channel for children featuring kids stories, cartoon stories, animated stories, nursery rhymes, bedtime stories, moral stories and fun kids videos with cute 3D cartoon animations.',
+};
+
+/**
+ * All publicly published long-form videos from YouTube channel @CocoKidsWorld-h1o.
+ * Video IDs, titles, thumbnails, durations, and descriptions are extracted directly from the channel.
+ */
+export const YOUTUBE_VIDEOS: VideoItem[] = [
+  {
+    id: 'hphRsKs9pdI',
+    youtubeId: 'hphRsKs9pdI',
+    youtubeUrl: 'https://www.youtube.com/watch?v=hphRsKs9pdI',
+    title: 'Leo’s Jungle Birthday Party 🦁🎂🎈 | Surprise Celebration | 3D Cartoon for Kids',
+    category: 'stories',
+    categoryLabel: 'Cartoon Story',
+    duration: '2:33',
+    views: '113+ views',
+    publishedDate: 'Recently Published',
+    thumbnail: 'https://i.ytimg.com/vi/hphRsKs9pdI/hq720.jpg',
+    ageGroup: 'Toddler & Preschool',
+    badgeColor: '#8B5CF6',
+    description:
+      'Join Leo the adorable little lion for a magical jungle birthday party filled with love, friendship, laughter, and surprises! Watch Leo celebrate his special day with Ellie the baby elephant, Momo the playful monkey, and all his adorable animal friends.',
+  },
+  {
+    id: 'p52j3TbfUxA',
+    youtubeId: 'p52j3TbfUxA',
+    youtubeUrl: 'https://www.youtube.com/watch?v=p52j3TbfUxA',
+    title: '🚂 Magical Train Adventure for Kids | Learn Colors, Animals, Fruits & Numbers 🌈 | Kids Cartoon',
+    category: 'learning',
+    categoryLabel: 'Early Learning',
+    duration: '2:07',
+    views: '50+ views',
+    publishedDate: '11 days ago',
+    thumbnail: 'https://i.ytimg.com/vi/p52j3TbfUxA/hq720.jpg',
+    ageGroup: 'Ages 1-5',
+    badgeColor: '#10B981',
+    description:
+      'Hop aboard our colorful magical train and join our little friend on an exciting learning journey! Along the way, visit amazing stations and learn colors, friendly animals (lion, elephant, monkey, giraffe), fruits, and count numbers 1 to 5.',
+  },
+  {
+    id: 'Js_QYpK-G1s',
+    youtubeId: 'Js_QYpK-G1s',
+    youtubeUrl: 'https://www.youtube.com/watch?v=Js_QYpK-G1s',
+    title: 'Fun Adventure at the Amusement Park 🛍️🎡 | Kids Cartoon | 3D Animation',
+    category: 'adventures',
+    categoryLabel: 'Fun Adventure',
+    duration: '2:01',
+    views: '650+ views',
+    publishedDate: '2 weeks ago',
+    thumbnail: 'https://i.ytimg.com/vi/Js_QYpK-G1s/hq720.jpg',
+    ageGroup: 'Ages 2-6',
+    badgeColor: '#EC4899',
+    description:
+      'Join our little friends on a fun shopping adventure at the amusement park! Explore colorful shops, exciting toys, and fun surprises in this cute and cheerful 3D cartoon made especially for kids.',
+  },
+  {
+    id: 'DOatByWh654',
+    youtubeId: 'DOatByWh654',
+    youtubeUrl: 'https://www.youtube.com/watch?v=DOatByWh654',
+    title: 'Amazing Zoo Adventure 🦁🐘🦒 | Fun Animal Adventure for Kids | Coco Kids World',
+    category: 'adventures',
+    categoryLabel: 'Animal Adventure',
+    duration: '3:31',
+    views: '4.9K views',
+    publishedDate: '2 weeks ago',
+    thumbnail: 'https://i.ytimg.com/vi/DOatByWh654/hq720.jpg',
+    ageGroup: 'Ages 2-7',
+    badgeColor: '#F59E0B',
+    description:
+      'Join Mia and Leo on an exciting Zoo Adventure! Come along as they discover amazing animals (elephants, lions, giraffes, pandas, penguins), enjoy a fun food break, and meet a beautiful snow leopard in the zoo!',
+  },
+  {
+    id: 'XvDQhPJjYRk',
+    youtubeId: 'XvDQhPJjYRk',
+    youtubeUrl: 'https://www.youtube.com/watch?v=XvDQhPJjYRk',
+    title: '🧒 Human Body Parts for Kids | Learn Body Parts with Fun 3D Animation 👀👂👃',
+    category: 'learning',
+    categoryLabel: 'Body & Health',
+    duration: '1:51',
+    views: '110+ views',
+    publishedDate: '1 month ago',
+    thumbnail: 'https://i.ytimg.com/vi/XvDQhPJjYRk/hq720.jpg',
+    ageGroup: 'Toddler & Preschool',
+    badgeColor: '#06B6D4',
+    description:
+      'In this colorful 3D animated video, kids will learn about different human body parts in a simple and fun way: Eyes, Ears, Nose, Tongue, Mouth & Teeth, Arms & Shoulders, Hands & Fingers, Legs & Knees, and Feet & Toes.',
+  },
+  {
+    id: '509pNAF9g6I',
+    youtubeId: '509pNAF9g6I',
+    youtubeUrl: 'https://www.youtube.com/watch?v=509pNAF9g6I',
+    title: '🔤 ABC Alphabet A to Z for Kids | Learn ABC with Fun & Colorful 3D Animation 🌈',
+    category: 'learning',
+    categoryLabel: 'Alphabet & Phonics',
+    duration: '2:31',
+    views: '80+ views',
+    publishedDate: '1 month ago',
+    thumbnail: 'https://i.ytimg.com/vi/509pNAF9g6I/hq720.jpg',
+    ageGroup: 'Ages 1-5',
+    badgeColor: '#3B82F6',
+    description:
+      'Learn the English alphabet from A to Z with colorful 3D animations, cute characters, and fun objects! Practice A for Apple, B for Ball, C for Cat, D for Dog, and all 26 letters.',
+  },
+  {
+    id: 'TRAwfd-gLek',
+    youtubeId: 'TRAwfd-gLek',
+    youtubeUrl: 'https://www.youtube.com/watch?v=TRAwfd-gLek',
+    title: '🐰 Bobo and the Magic Garden 🌈 | Cute Bunny Story for Kids | Kids Cartoon Story',
+    category: 'stories',
+    categoryLabel: 'Moral Story',
+    duration: '2:01',
+    views: '160+ views',
+    publishedDate: '1 month ago',
+    thumbnail: 'https://i.ytimg.com/vi/TRAwfd-gLek/hq720.jpg',
+    ageGroup: 'Ages 2-6',
+    badgeColor: '#E11D48',
+    description:
+      'Join Bobo, a cute little white bunny, and his adorable bird friends on a magical adventure! When Bobo discovers a giant magical carrot in the garden, he learns that sharing with friends brings the truest happiness.',
+  },
+];
+
+/**
+ * Publicly published YouTube Shorts from channel @CocoKidsWorld-h1o.
+ */
+export const YOUTUBE_SHORTS = [
+  {
+    id: 'qFque0qWi2I',
+    youtubeId: 'qFque0qWi2I',
+    youtubeUrl: 'https://www.youtube.com/shorts/qFque0qWi2I',
+    title: 'Rain Rain Let’s Play! 🌧️☔ | Fun Rainy Day Song for Kids',
+    category: 'songs',
+    thumbnail: 'https://i.ytimg.com/vi/qFque0qWi2I/hqdefault.jpg',
+    views: 'Trending',
+  },
+  {
+    id: 'I-e5acQ_C_w',
+    youtubeId: 'I-e5acQ_C_w',
+    youtubeUrl: 'https://www.youtube.com/shorts/I-e5acQ_C_w',
+    title: '🌈 Learn Shapes for Kids | Square, Rectangle, Triangle & Star ⭐🔺',
+    category: 'learning',
+    thumbnail: 'https://i.ytimg.com/vi/I-e5acQ_C_w/hqdefault.jpg',
+    views: 'Popular',
+  },
+  {
+    id: 'hvpMThqGW0A',
+    youtubeId: 'hvpMThqGW0A',
+    youtubeUrl: 'https://www.youtube.com/shorts/hvpMThqGW0A',
+    title: '🌈 Learn Colors for Kids | Color Hunt Game 🔴🟡🔵🟢',
+    category: 'learning',
+    thumbnail: 'https://i.ytimg.com/vi/hvpMThqGW0A/hqdefault.jpg',
+    views: 'Popular',
+  },
+  {
+    id: '1jJi5kxMGN8',
+    youtubeId: '1jJi5kxMGN8',
+    youtubeUrl: 'https://www.youtube.com/shorts/1jJi5kxMGN8',
+    title: '🔢 Count 1 to 10 for Kids 🎵 | Fun Counting Rhyme | Numbers 1-10',
+    category: 'songs',
+    thumbnail: 'https://i.ytimg.com/vi/1jJi5kxMGN8/hqdefault.jpg',
+    views: 'Popular',
+  },
+  {
+    id: 'bjOiY2vsGq8',
+    youtubeId: 'bjOiY2vsGq8',
+    youtubeUrl: 'https://www.youtube.com/shorts/bjOiY2vsGq8',
+    title: '🌳 Nature Is My Friend 🌸 | Fun Nature Song for Kids 🌈',
+    category: 'songs',
+    thumbnail: 'https://i.ytimg.com/vi/bjOiY2vsGq8/hqdefault.jpg',
+    views: 'Popular',
+  },
+  {
+    id: 'BL6tCctBy1Y',
+    youtubeId: 'BL6tCctBy1Y',
+    youtubeUrl: 'https://www.youtube.com/shorts/BL6tCctBy1Y',
+    title: '🐱 The Lost Red Ball | Cute Kitten & Friends | 3D Story ⚽❤️',
+    category: 'stories',
+    thumbnail: 'https://i.ytimg.com/vi/BL6tCctBy1Y/hqdefault.jpg',
+    views: 'Popular',
+  },
+];
+
+export const getVideoById = (id: string): VideoItem | undefined => {
+  return YOUTUBE_VIDEOS.find((v) => v.id === id || v.youtubeId === id);
+};
