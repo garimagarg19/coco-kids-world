@@ -8,6 +8,16 @@ export interface Character {
   avatarIcon: string;
 }
 
+export interface ShortItem {
+  id: string;
+  youtubeId: string;
+  youtubeUrl: string;
+  title: string;
+  category: 'stories' | 'songs' | 'learning' | 'adventures';
+  thumbnail: string;
+  views: string;
+}
+
 export interface VideoItem {
   id: string;
   youtubeId: string;

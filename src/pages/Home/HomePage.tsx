@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { PlayCircle, Sparkles, BookOpen, Music, Gamepad2, Heart, ArrowRight, Play, Clock, Eye } from 'lucide-react';
 import { YoutubeIcon } from '../../components/common/YoutubeIcon';
 import { CHARACTERS } from '../../data/characters';
-import { YOUTUBE_VIDEOS, CHANNEL_INFO } from '../../data/youtubeData';
+import { YOUTUBE_VIDEOS, CHANNEL_INFO, YOUTUBE_SHORTS } from '../../data/youtubeData';
+import { ShortsSlider } from '../../components/common/ShortsSlider';
 
 
 
@@ -501,6 +502,13 @@ export const HomePage: React.FC = () => {
           ))}
         </div>
       </section>
+
+      {/* Official YouTube Shorts Carousel Slider */}
+      <ShortsSlider
+        title="🌟 Trending YouTube Shorts & Rhymes"
+        subtitle="Swipe or click the arrows to explore fun bite-sized moments, funny cartoons, and quick lessons!"
+        shorts={YOUTUBE_SHORTS}
+      />
 
       {/* Pages & Adventures Roadmap Navigation Cards */}
       <section>

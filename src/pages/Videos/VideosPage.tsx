@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Play, Sparkles, Filter, Clock, Eye } from 'lucide-react';
 import { PageHeader } from '../../components/common/PageHeader';
 import { SAMPLE_VIDEOS, YOUTUBE_SHORTS } from '../../data/sampleData';
+import { ShortsSlider } from '../../components/common/ShortsSlider';
 
 
 const CATEGORIES = [
@@ -21,6 +22,11 @@ export const VideosPage: React.FC = () => {
       ? SAMPLE_VIDEOS
       : SAMPLE_VIDEOS.filter((v) => v.category === selectedCategory);
 
+  const filteredShorts =
+    selectedCategory === 'all'
+      ? YOUTUBE_SHORTS
+      : YOUTUBE_SHORTS.filter((s) => s.category === selectedCategory);
+
   return (
     <div>
       <PageHeader
@@ -38,9 +44,11 @@ export const VideosPage: React.FC = () => {
         style={{
           display: 'flex',
           justifyContent: 'center',
-          gap: '10px',
+          alignItems: 'center',
+          gap: '16px',
           flexWrap: 'wrap',
           marginBottom: '36px',
+          padding: '4px 12px',
         }}
       >
         {CATEGORIES.map((cat) => {
@@ -50,8 +58,8 @@ export const VideosPage: React.FC = () => {
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
               style={{
-                padding: '10px 20px',
-                borderRadius: '20px',
+                padding: '9px 18px',
+                borderRadius: '22px',
                 fontSize: '14.5px',
                 fontWeight: 700,
                 fontFamily: 'var(--font-display)',
@@ -62,8 +70,21 @@ export const VideosPage: React.FC = () => {
                   ? '0 4px 12px rgba(59, 130, 246, 0.3)'
                   : '0 2px 6px rgba(0, 0, 0, 0.04)',
                 cursor: 'pointer',
-                transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                transform: isSelected ? 'scale(1.05)' : 'scale(1)',
+                transition: 'all 0.18s ease',
+                transform: isSelected ? 'translateY(-2px)' : 'translateY(0)',
+                whiteSpace: 'nowrap',
+              }}
+              onMouseEnter={(e) => {
+                if (!isSelected) {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 6px 14px rgba(0, 0, 0, 0.08)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isSelected) {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.04)';
+                }
               }}
             >
               {cat.label}
@@ -73,14 +94,15 @@ export const VideosPage: React.FC = () => {
       </div>
 
       {/* Video Grid */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-          gap: '28px',
-        }}
-      >
-        {filteredVideos.map((video) => (
+      {filteredVideos.length > 0 ? (
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+            gap: '28px',
+          }}
+        >
+          {filteredVideos.map((video) => (
           <Link
             key={video.id}
             to={`/videos/${video.id}`}
@@ -252,145 +274,54 @@ export const VideosPage: React.FC = () => {
           </Link>
         ))}
       </div>
-
-      {/* Official YouTube Shorts Reel */}
-      <section style={{ marginTop: '56px' }}>
-        <div style={{ marginBottom: '24px' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '6px 14px',
-              borderRadius: '9999px',
-              background: '#FCE7F3',
-              color: '#DB2777',
-              fontSize: '12.5px',
-              fontWeight: 700,
-              fontFamily: 'var(--font-display)',
-              marginBottom: '6px',
-            }}
-          >
-            <span>⚡</span>
-            <span>Bite-Sized Fun</span>
-          </div>
-          <h2 style={{ fontSize: '26px', color: '#1E293B' }}>
-            Popular Cartoon Shorts & Rhymes
-          </h2>
-          <p style={{ color: '#64748B', fontSize: '14px' }}>
-            Quick songs, color games, and funny animal moments from our YouTube Shorts collection.
-          </p>
-        </div>
-
+      ) : (
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
-            gap: '16px',
+            background: 'rgba(255, 255, 255, 0.85)',
+            backdropFilter: 'blur(8px)',
+            borderRadius: '24px',
+            border: '2px dashed #CBD5E1',
+            padding: '36px 20px',
+            textAlign: 'center',
+            marginBottom: '16px',
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)',
           }}
         >
-          {YOUTUBE_SHORTS.map((short) => (
-            <a
-              key={short.id}
-              href={short.youtubeUrl}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                background: '#FFFFFF',
-                borderRadius: '20px',
-                border: '2px solid #E2E8F0',
-                overflow: 'hidden',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
-                display: 'flex',
-                flexDirection: 'column',
-                textDecoration: 'none',
-                color: 'inherit',
-                transition: 'all 0.15s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.borderColor = '#F472B6';
-                e.currentTarget.style.boxShadow = '0 12px 24px rgba(236, 72, 153, 0.15)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = '#E2E8F0';
-                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.04)';
-              }}
-            >
-              <div
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  aspectRatio: '9/16',
-                  backgroundColor: '#1E1B4B',
-                  overflow: 'hidden',
-                }}
-              >
-                <img
-                  src={short.thumbnail}
-                  alt={short.title}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
-                <div
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.7) 100%)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-end',
-                    padding: '12px',
-                  }}
-                >
-                  <span
-                    style={{
-                      color: '#FFFFFF',
-                      fontSize: '11px',
-                      fontWeight: 700,
-                      backgroundColor: 'rgba(239, 68, 68, 0.9)',
-                      padding: '2px 6px',
-                      borderRadius: '6px',
-                      width: 'fit-content',
-                      marginBottom: '4px',
-                    }}
-                  >
-                    Short
-                  </span>
-                </div>
-              </div>
-
-              <div style={{ padding: '12px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <h4
-                  style={{
-                    fontSize: '13px',
-                    lineHeight: 1.35,
-                    color: '#1E293B',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden',
-                    marginBottom: '8px',
-                  }}
-                >
-                  {short.title}
-                </h4>
-                <span
-                  style={{
-                    marginTop: 'auto',
-                    fontSize: '11.5px',
-                    color: '#EC4899',
-                    fontWeight: 700,
-                    fontFamily: 'var(--font-display)',
-                  }}
-                >
-                  Watch Short ↗
-                </span>
-              </div>
-            </a>
-          ))}
+          <div style={{ fontSize: '38px', marginBottom: '8px' }}>🎬✨</div>
+          <h3 style={{ fontSize: '19px', color: '#1E293B', marginBottom: '6px' }}>
+            Full episodes for {CATEGORIES.find((c) => c.id === selectedCategory)?.label || 'this category'} are coming soon!
+          </h3>
+          <p style={{ color: '#64748B', fontSize: '14.5px' }}>
+            Enjoy our bite-sized YouTube Shorts in this category below! 👇
+          </p>
         </div>
-      </section>
+      )}
+
+      {/* Official YouTube Shorts Reel Filtered by Category with Left-Right Arrows Slider */}
+      <ShortsSlider
+        shorts={filteredShorts}
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
+        showCategoryFilter={false}
+        title={
+          selectedCategory === 'all'
+            ? 'Popular Cartoon Shorts & Rhymes'
+            : selectedCategory === 'songs'
+            ? '🎵 Songs & Rhymes Shorts'
+            : selectedCategory === 'stories'
+            ? '📖 Cartoon Story Shorts'
+            : selectedCategory === 'learning'
+            ? '🎨 Play & Learn Educational Shorts'
+            : '🚀 Action & Adventure Shorts'
+        }
+        subtitle={
+          selectedCategory === 'all'
+            ? 'Quick songs, color games, funny animal moments, and bedtime tales from our YouTube Shorts collection.'
+            : `Showing ${filteredShorts.length} bite-sized cartoon shorts in ${
+                CATEGORIES.find((c) => c.id === selectedCategory)?.label || selectedCategory
+              }.`
+        }
+      />
     </div>
   );
 };

@@ -201,12 +201,12 @@ export const PlayLearnPage: React.FC = () => {
     if (!soundEnabled) return;
 
     setIsAnimalPlaying(true);
-    // Play ONLY the authentic animal sound effect - no extra talking
+    // Play ONLY the authentic animal sound effect
     playAnimalSoundEffect(animal.id);
 
     setTimeout(() => {
-      setIsAnimalPlaying(false);
-    }, 800);
+      setIsAnimalPlaying(false), 800;
+    });
   };
 
   // --- 3. Body Parts State ---
@@ -299,7 +299,7 @@ export const PlayLearnPage: React.FC = () => {
     }, 650);
   };
 
-  // --- 5. ABC Phonics State (Clean Natural Spoken Sentences, NO Slashes!) ---
+  // --- 5. ABC Phonics State (ALL 26 ALPHABETS A TO Z, B IS FOR BALL!) ---
   const alphabetData: AlphabetItem[] = [
     {
       letter: 'A',
@@ -311,10 +311,10 @@ export const PlayLearnPage: React.FC = () => {
     },
     {
       letter: 'B',
-      word: 'Butterfly',
-      emoji: '🦋',
-      speechText: 'B is for Butterfly, fluttering high and colorful!',
-      displayText: 'Fluttering high and colorful!',
+      word: 'Ball',
+      emoji: '⚽',
+      speechText: 'B is for Ball, it bounces high and round!',
+      displayText: 'It bounces high and round!',
       color: '#3B82F6',
     },
     {
@@ -327,10 +327,10 @@ export const PlayLearnPage: React.FC = () => {
     },
     {
       letter: 'D',
-      word: 'Dolphin',
-      emoji: '🐬',
-      speechText: 'D is for Dolphin, splashing happily in the ocean!',
-      displayText: 'Splashing happily in the ocean!',
+      word: 'Dog',
+      emoji: '🐶',
+      speechText: 'D is for Dog, wagging its happy tail!',
+      displayText: 'Wagging its happy tail!',
       color: '#06B6D4',
     },
     {
@@ -343,10 +343,10 @@ export const PlayLearnPage: React.FC = () => {
     },
     {
       letter: 'F',
-      word: 'Flower',
-      emoji: '🌸',
-      speechText: 'F is for Flower, blooming pretty in the garden!',
-      displayText: 'Blooming pretty in the garden!',
+      word: 'Fish',
+      emoji: '🐟',
+      speechText: 'F is for Fish, swimming in the blue sea!',
+      displayText: 'Swimming in the blue sea!',
       color: '#EC4899',
     },
     {
@@ -358,6 +358,46 @@ export const PlayLearnPage: React.FC = () => {
       color: '#10B981',
     },
     {
+      letter: 'H',
+      word: 'Hat',
+      emoji: '🎩',
+      speechText: 'H is for Hat, keeping your head cozy and cool!',
+      displayText: 'Keeping your head cozy and cool!',
+      color: '#F97316',
+    },
+    {
+      letter: 'I',
+      word: 'Ice Cream',
+      emoji: '🍦',
+      speechText: 'I is for Ice Cream, cool, creamy and yummy!',
+      displayText: 'Cool, creamy and yummy!',
+      color: '#0EA5E9',
+    },
+    {
+      letter: 'J',
+      word: 'Juice',
+      emoji: '🧃',
+      speechText: 'J is for Juice, sweet, fruity and refreshing!',
+      displayText: 'Sweet, fruity and refreshing!',
+      color: '#EAB308',
+    },
+    {
+      letter: 'K',
+      word: 'Kite',
+      emoji: '🪁',
+      speechText: 'K is for Kite, flying high in the windy sky!',
+      displayText: 'Flying high in the windy sky!',
+      color: '#A855F7',
+    },
+    {
+      letter: 'L',
+      word: 'Lion',
+      emoji: '🦁',
+      speechText: 'L is for Lion, the brave king of the jungle!',
+      displayText: 'The brave king of the jungle!',
+      color: '#F59E0B',
+    },
+    {
       letter: 'M',
       word: 'Moon',
       emoji: '🌙',
@@ -366,12 +406,100 @@ export const PlayLearnPage: React.FC = () => {
       color: '#6366F1',
     },
     {
+      letter: 'N',
+      word: 'Nest',
+      emoji: '🪺',
+      speechText: 'N is for Nest, cozy home for baby birdies!',
+      displayText: 'Cozy home for baby birdies!',
+      color: '#14B8A6',
+    },
+    {
+      letter: 'O',
+      word: 'Orange',
+      emoji: '🍊',
+      speechText: 'O is for Orange, juicy, round and full of sunshine!',
+      displayText: 'Juicy, round and full of sunshine!',
+      color: '#F97316',
+    },
+    {
+      letter: 'P',
+      word: 'Penguin',
+      emoji: '🐧',
+      speechText: 'P is for Penguin, waddling cheerfully across the ice!',
+      displayText: 'Waddling cheerfully across the ice!',
+      color: '#3B82F6',
+    },
+    {
+      letter: 'Q',
+      word: 'Queen',
+      emoji: '👑',
+      speechText: 'Q is for Queen, wearing a sparkly golden crown!',
+      displayText: 'Wearing a sparkly golden crown!',
+      color: '#EC4899',
+    },
+    {
+      letter: 'R',
+      word: 'Rainbow',
+      emoji: '🌈',
+      speechText: 'R is for Rainbow, painted with seven magical colors!',
+      displayText: 'Painted with seven magical colors!',
+      color: '#8B5CF6',
+    },
+    {
       letter: 'S',
       word: 'Sun',
       emoji: '☀️',
-      speechText: 'S is for Sun, shining bright and warm!',
-      displayText: 'Shining bright and warm!',
+      speechText: 'S is for Sun, shining bright, warm and golden!',
+      displayText: 'Shining bright, warm and golden!',
       color: '#EAB308',
+    },
+    {
+      letter: 'T',
+      word: 'Train',
+      emoji: '🚂',
+      speechText: 'T is for Train, rolling chugga-chugga on the tracks!',
+      displayText: 'Rolling chugga-chugga on the tracks!',
+      color: '#06B6D4',
+    },
+    {
+      letter: 'U',
+      word: 'Umbrella',
+      emoji: '☂️',
+      speechText: 'U is for Umbrella, keeping us happy and dry in the rain!',
+      displayText: 'Keeping us happy and dry in the rain!',
+      color: '#A855F7',
+    },
+    {
+      letter: 'V',
+      word: 'Violin',
+      emoji: '🎻',
+      speechText: 'V is for Violin, playing sweet lovely musical tunes!',
+      displayText: 'Playing sweet lovely musical tunes!',
+      color: '#F59E0B',
+    },
+    {
+      letter: 'W',
+      word: 'Watermelon',
+      emoji: '🍉',
+      speechText: 'W is for Watermelon, sweet, crunchy and refreshing!',
+      displayText: 'Sweet, crunchy and refreshing!',
+      color: '#10B981',
+    },
+    {
+      letter: 'X',
+      word: 'Xylophone',
+      emoji: '🎼',
+      speechText: 'X is for Xylophone, tapping happy melodic notes!',
+      displayText: 'Tapping happy melodic notes!',
+      color: '#EC4899',
+    },
+    {
+      letter: 'Y',
+      word: 'Yo-yo',
+      emoji: '🪀',
+      speechText: 'Y is for Yo-yo, spinning spinning up and down!',
+      displayText: 'Spinning spinning up and down!',
+      color: '#F97316',
     },
     {
       letter: 'Z',
@@ -607,7 +735,7 @@ export const PlayLearnPage: React.FC = () => {
       <div
         style={{
           display: 'flex',
-          gap: '10px',
+          gap: '12px',
           overflowX: 'auto',
           padding: '4px 2px 8px 2px',
           scrollbarWidth: 'none',
@@ -776,7 +904,7 @@ export const PlayLearnPage: React.FC = () => {
               </button>
             </div>
 
-            {/* Animals Grid Selector (Proper gap & translateY to prevent touching) */}
+            {/* Animals Grid Selector */}
             <div
               style={{
                 display: 'grid',
@@ -1198,7 +1326,7 @@ export const PlayLearnPage: React.FC = () => {
         )}
 
         {/* ============================================================== */}
-        {/* ACTIVITY 5: ABC PHONICS (Natural Speech: "A is for apple...") */}
+        {/* ACTIVITY 5: ABC PHONICS & LETTERS (ALL 26 ALPHABETS A TO Z!) */}
         {/* ============================================================== */}
         {(activeFilter === 'all' || activeFilter === 'abc') && (
           <div
@@ -1220,10 +1348,10 @@ export const PlayLearnPage: React.FC = () => {
                 <span style={{ fontSize: '32px' }}>🔤</span>
                 <div>
                   <h3 style={{ fontSize: '20px', color: '#1D4ED8', margin: 0, fontWeight: 800 }}>
-                    ABC Phonics & Letters
+                    ABC Phonics & Letters (A to Z)
                   </h3>
                   <p style={{ fontSize: '13px', color: '#64748B', margin: '2px 0 0 0' }}>
-                    Click letters to hear clean spoken phonics & words!
+                    Click any letter from A to Z to hear clean spoken phonics!
                   </p>
                 </div>
               </div>
@@ -1237,7 +1365,7 @@ export const PlayLearnPage: React.FC = () => {
                   borderRadius: '12px',
                 }}
               >
-                Early Reading
+                26 Letters
               </span>
             </div>
 
@@ -1293,13 +1421,14 @@ export const PlayLearnPage: React.FC = () => {
               </button>
             </div>
 
-            {/* Letters Grid (Proper gap & translateY to prevent touching) */}
+            {/* Letters Grid - All 26 A to Z letters */}
             <div
               style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(5, 1fr)',
-                gap: '12px',
-                padding: '4px',
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                gap: '8px',
+                padding: '6px',
               }}
             >
               {alphabetData.map((item) => {
@@ -1308,19 +1437,25 @@ export const PlayLearnPage: React.FC = () => {
                   <button
                     key={item.letter}
                     onClick={() => handleSelectLetter(item)}
+                    title={`${item.letter} for ${item.word}`}
                     style={{
-                      height: '50px',
-                      borderRadius: '14px',
+                      width: '42px',
+                      height: '42px',
+                      borderRadius: '12px',
                       fontFamily: 'var(--font-display)',
-                      fontSize: '20px',
+                      fontSize: '18px',
                       fontWeight: 800,
                       backgroundColor: isSelected ? '#EFF6FF' : '#F8FAFC',
                       color: isSelected ? item.color : '#334155',
-                      border: isSelected ? `3px solid ${item.color}` : '2px solid #E2E8F0',
+                      border: isSelected ? `2.5px solid ${item.color}` : '2px solid #E2E8F0',
                       cursor: 'pointer',
-                      transform: isSelected ? 'translateY(-3px)' : 'translateY(0)',
-                      boxShadow: isSelected ? `0 6px 14px ${item.color}35` : '0 2px 4px rgba(0,0,0,0.04)',
-                      transition: 'all 0.18s ease',
+                      transform: isSelected ? 'translateY(-2px)' : 'translateY(0)',
+                      boxShadow: isSelected ? `0 6px 12px ${item.color}40` : '0 2px 4px rgba(0,0,0,0.04)',
+                      transition: 'all 0.15s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
                     }}
                   >
                     {item.letter}

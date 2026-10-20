@@ -10,21 +10,19 @@ import {
   ShieldCheck, 
   Menu, 
   X, 
-  Tv
 } from 'lucide-react';
 import { YoutubeIcon } from '../common/YoutubeIcon';
-
 import { NAV_ITEMS } from '../../data/characters';
 
 // Map icon name string to Lucide component
 const iconMap: Record<string, React.ReactNode> = {
-  Sparkles: <Sparkles size={18} />,
-  PlayCircle: <PlayCircle size={18} />,
-  BookOpen: <BookOpen size={18} />,
-  Gamepad2: <Gamepad2 size={18} />,
-  Music: <Music size={18} />,
-  Heart: <Heart size={18} />,
-  ShieldCheck: <ShieldCheck size={18} />,
+  Sparkles: <Sparkles size={16} />,
+  PlayCircle: <PlayCircle size={16} />,
+  BookOpen: <BookOpen size={16} />,
+  Gamepad2: <Gamepad2 size={16} />,
+  Music: <Music size={16} />,
+  Heart: <Heart size={16} />,
+  ShieldCheck: <ShieldCheck size={16} />,
 };
 
 export const Navbar: React.FC = () => {
@@ -39,44 +37,46 @@ export const Navbar: React.FC = () => {
         zIndex: 50,
         margin: '0 auto',
         width: '95%',
-        maxWidth: '1240px',
+        maxWidth: '1260px',
         padding: '0 8px',
       }}
     >
       <div
         style={{
-          background: 'rgba(255, 255, 255, 0.92)',
+          background: 'rgba(255, 255, 255, 0.94)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
           borderRadius: '28px',
           border: '3px solid #FFFFFF',
           boxShadow: '0 10px 30px -5px rgba(124, 58, 237, 0.15), 0 4px 12px rgba(0, 0, 0, 0.05)',
-          padding: '10px 18px',
+          padding: '8px 16px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          gap: '12px',
         }}
       >
-        {/* Brand Logo */}
+        {/* Brand Logo & One-Line Name */}
         <Link
           to="/"
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
+            gap: '8px',
             textDecoration: 'none',
+            flexShrink: 0,
           }}
           onClick={() => setMobileMenuOpen(false)}
         >
           <div
             style={{
               position: 'relative',
-              width: '48px',
-              height: '48px',
+              width: '40px',
+              height: '40px',
               borderRadius: '50%',
               background: 'linear-gradient(135deg, #FCE7F3, #DDD6FE)',
-              padding: '3px',
-              boxShadow: '0 4px 12px rgba(236, 72, 153, 0.25)',
+              padding: '2.5px',
+              boxShadow: '0 4px 10px rgba(236, 72, 153, 0.22)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -98,21 +98,20 @@ export const Navbar: React.FC = () => {
                 (e.target as HTMLElement).style.display = 'none';
               }}
             />
-            <span style={{ fontSize: '24px', position: 'absolute' }}>🐰</span>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
             <span
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: '22px',
+                fontSize: '18px',
                 fontWeight: 700,
                 lineHeight: 1.1,
                 background: 'linear-gradient(90deg, #FF4B72, #A855F7, #3B82F6)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 letterSpacing: '-0.02em',
-                textShadow: '0 2px 10px rgba(244, 114, 182, 0.2)',
+                whiteSpace: 'nowrap',
               }}
             >
               Coco Kids World
@@ -120,11 +119,12 @@ export const Navbar: React.FC = () => {
             <span
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: '11px',
+                fontSize: '10px',
                 fontWeight: 600,
                 color: '#8B5CF6',
                 letterSpacing: '0.04em',
                 textTransform: 'uppercase',
+                whiteSpace: 'nowrap',
               }}
             >
               ✨ Fun, Songs & Tales
@@ -137,8 +137,9 @@ export const Navbar: React.FC = () => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '6px',
+            gap: '5px',
             flexWrap: 'nowrap',
+            flexShrink: 1,
           }}
           className="desktop-nav"
         >
@@ -151,35 +152,35 @@ export const Navbar: React.FC = () => {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '5px',
-                  padding: '7px 11px',
-                  borderRadius: '16px',
-                  fontSize: '13px',
+                  gap: '4px',
+                  padding: '6px 10px',
+                  borderRadius: '14px',
+                  fontSize: '12.5px',
                   fontWeight: 600,
                   fontFamily: 'var(--font-display)',
                   color: isActive ? '#FFFFFF' : item.color,
                   backgroundColor: isActive ? item.activeColor : item.pillColor,
-                  border: `2px solid ${isActive ? item.activeColor : 'transparent'}`,
-                  boxShadow: isActive ? '0 4px 12px rgba(0, 0, 0, 0.12)' : 'none',
-                  transition: 'all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                  transform: isActive ? 'scale(1.03)' : 'scale(1)',
+                  border: `1.5px solid ${isActive ? item.activeColor : 'transparent'}`,
+                  boxShadow: isActive ? '0 4px 10px rgba(0, 0, 0, 0.1)' : 'none',
+                  transition: 'all 0.15s ease',
+                  transform: isActive ? 'translateY(-1px)' : 'translateY(0)',
                   whiteSpace: 'nowrap',
+                  flexShrink: 0,
                 }}
                 onMouseEnter={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)';
-                    e.currentTarget.style.backgroundColor = item.pillColor;
-                    e.currentTarget.style.boxShadow = '0 6px 14px rgba(0, 0, 0, 0.08)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.08)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.transform = 'translateY(0)';
                     e.currentTarget.style.boxShadow = 'none';
                   }
                 }}
               >
-                <span>{iconMap[item.iconName]}</span>
+                <span style={{ display: 'flex', alignItems: 'center' }}>{iconMap[item.iconName]}</span>
                 <span>{item.label}</span>
               </Link>
             );
@@ -187,7 +188,7 @@ export const Navbar: React.FC = () => {
         </nav>
 
         {/* Action Buttons: YouTube & Mobile Menu */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0, marginLeft: '4px' }}>
           <a
             href="https://youtube.com/@CocoKidsWorld-h1o"
             target="_blank"
@@ -195,28 +196,30 @@ export const Navbar: React.FC = () => {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '8px',
-              padding: '9px 16px',
+              gap: '6px',
+              padding: '7px 14px',
               backgroundColor: '#FF0000',
               color: '#FFFFFF',
-              borderRadius: '20px',
-              fontSize: '13.5px',
+              borderRadius: '18px',
+              fontSize: '13px',
               fontWeight: 700,
               fontFamily: 'var(--font-display)',
               textDecoration: 'none',
-              boxShadow: '0 4px 0 #B91C1C, 0 8px 16px rgba(239, 68, 68, 0.3)',
+              boxShadow: '0 3px 0 #B91C1C, 0 6px 14px rgba(239, 68, 68, 0.25)',
               transition: 'all 0.15s ease',
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
             }}
             onMouseDown={(e) => {
-              e.currentTarget.style.transform = 'translateY(3px)';
+              e.currentTarget.style.transform = 'translateY(2px)';
               e.currentTarget.style.boxShadow = '0 1px 0 #B91C1C';
             }}
             onMouseUp={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 0 #B91C1C, 0 8px 16px rgba(239, 68, 68, 0.3)';
+              e.currentTarget.style.boxShadow = '0 3px 0 #B91C1C, 0 6px 14px rgba(239, 68, 68, 0.25)';
             }}
           >
-            <YoutubeIcon size={18} fill="#FFFFFF" />
+            <YoutubeIcon size={16} fill="#FFFFFF" />
             <span className="yt-text">Subscribe</span>
           </a>
 
@@ -229,15 +232,15 @@ export const Navbar: React.FC = () => {
               display: 'none',
               alignItems: 'center',
               justifyContent: 'center',
-              width: '42px',
-              height: '42px',
-              borderRadius: '16px',
+              width: '40px',
+              height: '40px',
+              borderRadius: '14px',
               background: '#F3E8FF',
               color: '#7C3AED',
               border: '2px solid #E9D5FF',
             }}
           >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
@@ -289,7 +292,17 @@ export const Navbar: React.FC = () => {
 
       {/* Responsive Style Tweaks */}
       <style>{`
-        @media (max-width: 1180px) {
+        @media (max-width: 1240px) {
+          .desktop-nav a {
+            padding: 5px 8px !important;
+            font-size: 12px !important;
+            gap: 3px !important;
+          }
+          .desktop-nav {
+            gap: 4px !important;
+          }
+        }
+        @media (max-width: 1060px) {
           .desktop-nav {
             display: none !important;
           }

@@ -1,5 +1,5 @@
 import { YOUTUBE_VIDEOS, YOUTUBE_SHORTS, CHANNEL_INFO } from './youtubeData';
-import { VideoItem } from '../types';
+import { VideoItem, ShortItem } from '../types';
 
 /**
  * Re-exporting real YouTube channel videos as SAMPLE_VIDEOS for backwards compatibility.
@@ -7,3 +7,5 @@ import { VideoItem } from '../types';
  */
 export const SAMPLE_VIDEOS: VideoItem[] = YOUTUBE_VIDEOS;
 export { YOUTUBE_VIDEOS, YOUTUBE_SHORTS, CHANNEL_INFO };
+export type { ShortItem };
+

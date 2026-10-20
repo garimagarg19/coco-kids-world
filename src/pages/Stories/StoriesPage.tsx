@@ -37,9 +37,11 @@ export const StoriesPage: React.FC = () => {
         style={{
           display: 'flex',
           justifyContent: 'center',
-          gap: '10px',
+          alignItems: 'center',
+          gap: '16px',
           flexWrap: 'wrap',
           marginBottom: '36px',
+          padding: '4px 12px',
         }}
       >
         {STORY_FILTERS.map((f) => {
@@ -49,8 +51,8 @@ export const StoriesPage: React.FC = () => {
               key={f.id}
               onClick={() => setSelectedFilter(f.id)}
               style={{
-                padding: '10px 20px',
-                borderRadius: '20px',
+                padding: '9px 18px',
+                borderRadius: '22px',
                 fontSize: '14px',
                 fontWeight: 700,
                 fontFamily: 'var(--font-display)',
@@ -61,8 +63,21 @@ export const StoriesPage: React.FC = () => {
                   ? '0 4px 14px rgba(139, 92, 246, 0.35)'
                   : '0 2px 6px rgba(0, 0, 0, 0.04)',
                 cursor: 'pointer',
-                transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                transform: isSelected ? 'scale(1.05)' : 'scale(1)',
+                transition: 'all 0.18s ease',
+                transform: isSelected ? 'translateY(-2px)' : 'translateY(0)',
+                whiteSpace: 'nowrap',
+              }}
+              onMouseEnter={(e) => {
+                if (!isSelected) {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 6px 14px rgba(0, 0, 0, 0.08)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isSelected) {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.04)';
+                }
               }}
             >
               {f.label}
