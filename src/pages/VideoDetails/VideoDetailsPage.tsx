@@ -8,22 +8,22 @@ import { SAMPLE_VIDEOS } from '../../data/sampleData';
 export const VideoDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [likesCount, setLikesCount] = useState(2450);
-  const [hasLiked, setHasLiked] = useState(false);
+  // const [likesCount, setLikesCount] = useState(2450);
+  // const [hasLiked, setHasLiked] = useState(false);
 
   // Find matching video or fallback to first
   const currentVideo = SAMPLE_VIDEOS.find((v) => v.id === id) || SAMPLE_VIDEOS[0];
   const relatedVideos = SAMPLE_VIDEOS.filter((v) => v.id !== currentVideo.id).slice(0, 3);
 
-  const handleLike = () => {
-    if (!hasLiked) {
-      setLikesCount(likesCount + 1);
-      setHasLiked(true);
-    } else {
-      setLikesCount(likesCount - 1);
-      setHasLiked(false);
-    }
-  };
+  // const handleLike = () => {
+  //   if (!hasLiked) {
+  //     setLikesCount(likesCount + 1);
+  //     setHasLiked(true);
+  //   } else {
+  //     setLikesCount(likesCount - 1);
+  //     setHasLiked(false);
+  //   }
+  // };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
@@ -231,7 +231,7 @@ export const VideoDetailsPage: React.FC = () => {
                 borderTop: '1px solid #F1F5F9',
               }}
             >
-              <button
+              {/* <button
                 onClick={handleLike}
                 style={{
                   display: 'inline-flex',
@@ -250,7 +250,7 @@ export const VideoDetailsPage: React.FC = () => {
               >
                 <Heart size={18} fill={hasLiked ? '#EC4899' : 'none'} />
                 <span>{likesCount} Loves</span>
-              </button>
+              </button> */}
 
               <div
                 style={{

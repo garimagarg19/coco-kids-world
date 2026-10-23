@@ -1,59 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Music, Play, Sparkles, Heart, Disc, Volume2 } from 'lucide-react';
 import { PageHeader } from '../../components/common/PageHeader';
-
-const RHYMES = [
-  {
-    title: 'Twinkle, Twinkle, Little Star 🌟',
-    theme: 'Calm Lullaby',
-    badgeBg: '#EDE9FE',
-    badgeColor: '#7C3AED',
-    lyrics: 'Twinkle, twinkle, little star, how I wonder what you are! Up above the world so high, like a diamond in the sky...',
-    time: '3:10',
-  },
-  {
-    title: 'The Wheels on the Magic Bus 🚌',
-    theme: 'Action & Sing-Along',
-    badgeBg: '#FEF3C7',
-    badgeColor: '#B45309',
-    lyrics: 'The wheels on the bus go round and round, round and round, round and round! All through the candy town...',
-    time: '2:45',
-  },
-  {
-    title: 'Coco’s Bunny Hop Dance 🐰',
-    theme: 'Energetic Movement',
-    badgeBg: '#FCE7F3',
-    badgeColor: '#BE185D',
-    lyrics: 'Put your paws up high, touch the sunny sky! Now hop, hop, hop, don’t you ever stop!',
-    time: '3:30',
-  },
-  {
-    title: 'Old MacDonald’s Happy Jungle 🦁',
-    theme: 'Animal Fun',
-    badgeBg: '#DCFCE7',
-    badgeColor: '#047857',
-    lyrics: 'Old MacDonald had a farm, E-I-E-I-O! And on that farm he had a lion cub, E-I-E-I-O!',
-    time: '3:50',
-  },
-  {
-    title: 'If You’re Happy and You Know It 👏',
-    theme: 'Interactive Rhythm',
-    badgeBg: '#DBEAFE',
-    badgeColor: '#1D4ED8',
-    lyrics: 'If you’re happy and you know it, clap your hands! If you’re happy and you know it, shout HOORAY!',
-    time: '2:55',
-  },
-  {
-    title: 'Sweet Dreams Cloud Lullaby 🌙',
-    theme: 'Bedtime Soother',
-    badgeBg: '#F3E8FF',
-    badgeColor: '#6D28D9',
-    lyrics: 'Soft pink clouds and gentle breeze, sleepy birds upon the trees. Close your eyes and dream of stars...',
-    time: '4:20',
-  },
-];
+import { RHYMES_DATA, RhymeItem } from '../../data/rhymesData';
+import { SingAlongModal } from '../../components/rhymes/SingAlongModal';
 
 export const SongsRhymesPage: React.FC = () => {
+  const [selectedRhyme, setSelectedRhyme] = useState<RhymeItem | null>(null);
+
   return (
     <div>
       <PageHeader
@@ -73,9 +26,9 @@ export const SongsRhymesPage: React.FC = () => {
           gap: '24px',
         }}
       >
-        {RHYMES.map((rhyme, idx) => (
+        {RHYMES_DATA.map((rhyme) => (
           <div
-            key={idx}
+            key={rhyme.id}
             style={{
               backgroundColor: '#FFFFFF',
               borderRadius: '24px',
@@ -86,6 +39,7 @@ export const SongsRhymesPage: React.FC = () => {
               flexDirection: 'column',
               gap: '14px',
               transition: 'all 0.2s ease',
+              position: 'relative',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-4px)';
@@ -122,6 +76,8 @@ export const SongsRhymesPage: React.FC = () => {
             </h3>
 
             <div
+              onClick={() => setSelectedRhyme(rhyme)}
+              title="Click to open Sing-Along Player"
               style={{
                 backgroundColor: '#FFFBEB',
                 borderRadius: '16px',
@@ -131,9 +87,17 @@ export const SongsRhymesPage: React.FC = () => {
                 color: '#78350F',
                 fontStyle: 'italic',
                 lineHeight: 1.5,
+                cursor: 'pointer',
+                transition: 'background-color 0.15s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#FEF3C7';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#FFFBEB';
               }}
             >
-              "{rhyme.lyrics}"
+              "{rhyme.shortLyrics}"
             </div>
 
             <div
@@ -146,29 +110,57 @@ export const SongsRhymesPage: React.FC = () => {
               }}
             >
               <button
+                type="button"
+                onClick={() => setSelectedRhyme(rhyme)}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '8px',
-                  padding: '10px 18px',
+                  padding: '10px 20px',
                   borderRadius: '16px',
                   backgroundColor: '#F59E0B',
                   color: '#FFFFFF',
                   fontSize: '14px',
                   fontWeight: 700,
                   fontFamily: 'var(--font-display)',
-                  boxShadow: '0 4px 12px rgba(245, 158, 11, 0.25)',
+                  boxShadow: '0 4px 14px rgba(245, 158, 11, 0.35)',
+                  cursor: 'pointer',
+                  border: 'none',
+                  transition: 'all 0.15s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                  e.currentTarget.style.backgroundColor = '#D97706';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.backgroundColor = '#F59E0B';
                 }}
               >
                 <Play size={16} fill="#FFFFFF" />
                 <span>Sing Along</span>
               </button>
 
-              <span style={{ fontSize: '20px' }}>🎶</span>
+              <span
+                style={{ fontSize: '22px', cursor: 'pointer' }}
+                onClick={() => setSelectedRhyme(rhyme)}
+                title="Play poem"
+              >
+                {rhyme.emoji}
+              </span>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Interactive Sing-Along Popup Modal */}
+      {selectedRhyme && (
+        <SingAlongModal
+          rhyme={selectedRhyme}
+          onClose={() => setSelectedRhyme(null)}
+        />
+      )}
     </div>
   );
 };
+
