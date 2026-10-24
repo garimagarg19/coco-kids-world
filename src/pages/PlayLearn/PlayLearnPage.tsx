@@ -70,6 +70,7 @@ interface ShapeItem {
 
 interface FruitItem {
   name: string;
+  shortName?: string;
   emoji: string;
   color: string;
   fact: string;
@@ -541,12 +542,18 @@ export const PlayLearnPage: React.FC = () => {
 
   // --- 7. Yummy Fruits Basket State ---
   const fruitsData: FruitItem[] = [
-    { name: 'Crisp Red Apple', emoji: '🍎', color: '#EF4444', fact: 'Apples give you strong teeth and healthy vitamins! Crunch crunch!' },
-    { name: 'Golden Banana', emoji: '🍌', color: '#FACC15', fact: 'Bananas give monkeys and children lots of bouncy energy!' },
-    { name: 'Juicy Orange', emoji: '🍊', color: '#F97316', fact: 'Oranges are filled with refreshing Vitamin C to keep you strong!' },
-    { name: 'Sweet Strawberry', emoji: '🍓', color: '#E11D48', fact: 'Strawberries are dotted with tiny seeds and taste like summer treats!' },
-    { name: 'Cool Watermelon', emoji: '🍉', color: '#10B981', fact: 'Watermelon is 92% pure sweet water, super refreshing on sunny days!' },
-    { name: 'Plump Purple Grapes', emoji: '🍇', color: '#8B5CF6', fact: 'Grapes grow in happy clusters on vines and pop with sweet juice!' },
+    { name: 'Crisp Red Apple', shortName: 'Apple', emoji: '🍎', color: '#EF4444', fact: 'Apples give you strong teeth and healthy vitamins! Crunch crunch!' },
+    { name: 'Golden Banana', shortName: 'Banana', emoji: '🍌', color: '#FACC15', fact: 'Bananas give monkeys and children lots of bouncy energy!' },
+    { name: 'Juicy Orange', shortName: 'Orange', emoji: '🍊', color: '#F97316', fact: 'Oranges are filled with refreshing Vitamin C to keep you strong!' },
+    { name: 'Sweet Strawberry', shortName: 'Strawberry', emoji: '🍓', color: '#E11D48', fact: 'Strawberries are dotted with tiny seeds and taste like summer treats!' },
+    { name: 'Cool Watermelon', shortName: 'Watermelon', emoji: '🍉', color: '#10B981', fact: 'Watermelon is 92% pure sweet water, super refreshing on sunny days!' },
+    { name: 'Plump Purple Grapes', shortName: 'Grapes', emoji: '🍇', color: '#8B5CF6', fact: 'Grapes grow in happy clusters on vines and pop with sweet juice!' },
+    { name: 'Sweet Tropical Mango', shortName: 'Mango', emoji: '🥭', color: '#F59E0B', fact: 'Mango is known as the King of Fruits, super sweet, golden, and juicy!' },
+    { name: 'Sun-Kissed Pineapple', shortName: 'Pineapple', emoji: '🍍', color: '#EAB308', fact: 'Pineapples wear a spiky golden crown and are bursting with tropical sweetness!' },
+    { name: 'Velvet Sweet Peach', shortName: 'Peach', emoji: '🍑', color: '#FB923C', fact: 'Peaches have velvety soft skin and sweet, tender juice inside!' },
+    { name: 'Cheerful Red Cherries', shortName: 'Cherries', emoji: '🍒', color: '#DC2626', fact: 'Cherries grow together in friendly pairs and taste like sweet candy!' },
+    { name: 'Bright Green Kiwi', shortName: 'Kiwi', emoji: '🥝', color: '#65A30D', fact: 'Kiwis are fuzzy on the outside and bright emerald green with tiny black seeds inside!' },
+    { name: 'Tropical Fresh Coconut', shortName: 'Coconut', emoji: '🥥', color: '#78350F', fact: 'Coconuts have cool sweet water and delicious crunchy white treats inside!' },
   ];
   const [activeFruit, setActiveFruit] = useState<FruitItem>(fruitsData[0]);
 
@@ -746,10 +753,10 @@ export const PlayLearnPage: React.FC = () => {
           { id: 'animals', label: '🦁 Animal Safari' },
           { id: 'colors', label: '🎈 Colors' },
           { id: 'piano', label: '🎹 Rainbow Piano' },
-          { id: 'abc', label: '🔤 ABC Phonics' },
+          { id: 'shapes', label: '🔺 Shapes' },
           { id: 'stars', label: '⭐ Star Counting' },
           { id: 'body', label: '👀 Body Parts' },
-          { id: 'shapes', label: '🔺 Shapes' },
+          { id: 'abc', label: '🔤 ABC Phonics' },
           { id: 'fruits', label: '🍎 Sweet Fruits' },
         ].map((tab) => {
           const isActive = activeFilter === tab.id;
@@ -1326,16 +1333,16 @@ export const PlayLearnPage: React.FC = () => {
         )}
 
         {/* ============================================================== */}
-        {/* ACTIVITY 5: ABC PHONICS & LETTERS (ALL 26 ALPHABETS A TO Z!) */}
+        {/* ACTIVITY 5: MAGIC SHAPES KINGDOM */}
         {/* ============================================================== */}
-        {(activeFilter === 'all' || activeFilter === 'abc') && (
+        {(activeFilter === 'all' || activeFilter === 'shapes') && (
           <div
             style={{
               background: '#FFFFFF',
               borderRadius: '28px',
-              border: '3px solid #BFDBFE',
+              border: '3px solid #FEF08A',
               padding: '24px',
-              boxShadow: '0 8px 24px rgba(59, 130, 246, 0.1)',
+              boxShadow: '0 8px 24px rgba(202, 138, 4, 0.1)',
               display: 'flex',
               flexDirection: 'column',
               gap: '16px',
@@ -1345,13 +1352,13 @@ export const PlayLearnPage: React.FC = () => {
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontSize: '32px' }}>🔤</span>
+                <span style={{ fontSize: '32px' }}>🔺</span>
                 <div>
-                  <h3 style={{ fontSize: '20px', color: '#1D4ED8', margin: 0, fontWeight: 800 }}>
-                    ABC Phonics & Letters (A to Z)
+                  <h3 style={{ fontSize: '20px', color: '#A16207', margin: 0, fontWeight: 800 }}>
+                    Shapes Magic Kingdom
                   </h3>
                   <p style={{ fontSize: '13px', color: '#64748B', margin: '2px 0 0 0' }}>
-                    Click any letter from A to Z to hear clean spoken phonics!
+                    Learn circles, triangles, stars & hearts with cheerful rhymes!
                   </p>
                 </div>
               </div>
@@ -1359,23 +1366,23 @@ export const PlayLearnPage: React.FC = () => {
                 style={{
                   fontSize: '12px',
                   fontWeight: 700,
-                  backgroundColor: '#DBEAFE',
-                  color: '#1E40AF',
+                  backgroundColor: '#FEF9C3',
+                  color: '#854D0E',
                   padding: '4px 10px',
                   borderRadius: '12px',
                 }}
               >
-                26 Letters
+                Geometry Fun
               </span>
             </div>
 
-            {/* Phonics Active Card */}
+            {/* Shape Active Stage */}
             <div
               style={{
                 padding: '20px',
                 borderRadius: '24px',
-                background: '#EFF6FF',
-                border: `2px solid ${activeLetter.color}50`,
+                background: '#FEFCE8',
+                border: `2px solid ${activeShape.color}60`,
                 textAlign: 'center',
                 display: 'flex',
                 flexDirection: 'column',
@@ -1384,81 +1391,59 @@ export const PlayLearnPage: React.FC = () => {
                 minHeight: '150px',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '6px' }}>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '52px',
-                    fontWeight: 800,
-                    color: activeLetter.color,
-                  }}
-                >
-                  {activeLetter.letter}
-                </span>
-                <span style={{ fontSize: '46px' }}>{activeLetter.emoji}</span>
-              </div>
-              <h4 style={{ fontSize: '20px', color: '#1E293B', margin: '0 0 4px 0', fontWeight: 800 }}>
-                {activeLetter.letter} is for {activeLetter.word}!
+              <span style={{ fontSize: '48px', marginBottom: '6px' }} className="animate-float">
+                {activeShape.symbol}
+              </span>
+              <h4 style={{ fontSize: '20px', color: activeShape.color, margin: '0 0 4px 0', fontWeight: 800 }}>
+                {activeShape.name}
               </h4>
-              <p style={{ fontSize: '14px', color: '#475569', margin: '0 0 10px 0', fontWeight: 600 }}>
-                {activeLetter.displayText}
-              </p>
-              <button
-                onClick={() => handleSelectLetter(activeLetter)}
+              <span
                 style={{
-                  padding: '7px 18px',
-                  borderRadius: '14px',
-                  backgroundColor: activeLetter.color,
-                  color: '#FFFFFF',
-                  fontSize: '13px',
+                  fontSize: '12px',
                   fontWeight: 700,
-                  border: 'none',
-                  cursor: 'pointer',
-                  boxShadow: `0 4px 12px ${activeLetter.color}40`,
+                  color: '#64748B',
+                  backgroundColor: '#FFFFFF',
+                  padding: '2px 10px',
+                  borderRadius: '10px',
+                  marginBottom: '8px',
+                  border: '1px solid #E2E8F0',
                 }}
               >
-                Hear Phonics Again 🔊
-              </button>
+                {activeShape.corners}
+              </span>
+              <p style={{ fontSize: '13.5px', color: '#475569', margin: '0', fontWeight: 600 }}>
+                {activeShape.phrase}
+              </p>
             </div>
 
-            {/* Letters Grid - All 26 A to Z letters */}
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: '8px',
-                padding: '6px',
-              }}
-            >
-              {alphabetData.map((item) => {
-                const isSelected = activeLetter.letter === item.letter;
+            {/* Shape Buttons */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', padding: '4px' }}>
+              {shapesData.map((s) => {
+                const isSelected = activeShape.name === s.name;
                 return (
                   <button
-                    key={item.letter}
-                    onClick={() => handleSelectLetter(item)}
-                    title={`${item.letter} for ${item.word}`}
+                    key={s.name}
+                    onClick={() => handleSelectShape(s)}
                     style={{
-                      width: '42px',
-                      height: '42px',
-                      borderRadius: '12px',
-                      fontFamily: 'var(--font-display)',
-                      fontSize: '18px',
-                      fontWeight: 800,
-                      backgroundColor: isSelected ? '#EFF6FF' : '#F8FAFC',
-                      color: isSelected ? item.color : '#334155',
-                      border: isSelected ? `2.5px solid ${item.color}` : '2px solid #E2E8F0',
+                      padding: '10px 8px',
+                      borderRadius: '14px',
+                      backgroundColor: isSelected ? '#FEF08A' : '#F8FAFC',
+                      border: isSelected ? `2.5px solid ${s.color}` : '1.5px solid #E2E8F0',
                       cursor: 'pointer',
-                      transform: isSelected ? 'translateY(-2px)' : 'translateY(0)',
-                      boxShadow: isSelected ? `0 6px 12px ${item.color}40` : '0 2px 4px rgba(0,0,0,0.04)',
-                      transition: 'all 0.15s ease',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      flexShrink: 0,
+                      gap: '6px',
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      color: isSelected ? '#854D0E' : '#334155',
+                      transform: isSelected ? 'translateY(-3px)' : 'translateY(0)',
+                      boxShadow: isSelected ? '0 6px 14px rgba(234, 179, 8, 0.25)' : '0 2px 4px rgba(0,0,0,0.04)',
+                      transition: 'all 0.18s ease',
                     }}
                   >
-                    {item.letter}
+                    <span>{s.symbol}</span>
+                    <span>{s.name}</span>
                   </button>
                 );
               })}
@@ -1613,16 +1598,16 @@ export const PlayLearnPage: React.FC = () => {
         )}
 
         {/* ============================================================== */}
-        {/* ACTIVITY 7: MAGIC SHAPES KINGDOM */}
+        {/* ACTIVITY 7: ABC PHONICS & LETTERS (ALL 26 ALPHABETS A TO Z!) */}
         {/* ============================================================== */}
-        {(activeFilter === 'all' || activeFilter === 'shapes') && (
+        {(activeFilter === 'all' || activeFilter === 'abc') && (
           <div
             style={{
               background: '#FFFFFF',
               borderRadius: '28px',
-              border: '3px solid #FEF08A',
+              border: '3px solid #BFDBFE',
               padding: '24px',
-              boxShadow: '0 8px 24px rgba(202, 138, 4, 0.1)',
+              boxShadow: '0 8px 24px rgba(59, 130, 246, 0.1)',
               display: 'flex',
               flexDirection: 'column',
               gap: '16px',
@@ -1632,13 +1617,13 @@ export const PlayLearnPage: React.FC = () => {
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontSize: '32px' }}>🔺</span>
+                <span style={{ fontSize: '32px' }}>🔤</span>
                 <div>
-                  <h3 style={{ fontSize: '20px', color: '#A16207', margin: 0, fontWeight: 800 }}>
-                    Shapes Magic Kingdom
+                  <h3 style={{ fontSize: '20px', color: '#1D4ED8', margin: 0, fontWeight: 800 }}>
+                    ABC Phonics & Letters (A to Z)
                   </h3>
                   <p style={{ fontSize: '13px', color: '#64748B', margin: '2px 0 0 0' }}>
-                    Learn circles, triangles, stars & hearts with cheerful rhymes!
+                    Click any letter from A to Z to hear clean spoken phonics!
                   </p>
                 </div>
               </div>
@@ -1646,23 +1631,23 @@ export const PlayLearnPage: React.FC = () => {
                 style={{
                   fontSize: '12px',
                   fontWeight: 700,
-                  backgroundColor: '#FEF9C3',
-                  color: '#854D0E',
+                  backgroundColor: '#DBEAFE',
+                  color: '#1E40AF',
                   padding: '4px 10px',
                   borderRadius: '12px',
                 }}
               >
-                Geometry Fun
+                26 Letters
               </span>
             </div>
 
-            {/* Shape Active Stage */}
+            {/* Phonics Active Card */}
             <div
               style={{
                 padding: '20px',
                 borderRadius: '24px',
-                background: '#FEFCE8',
-                border: `2px solid ${activeShape.color}60`,
+                background: '#EFF6FF',
+                border: `2px solid ${activeLetter.color}50`,
                 textAlign: 'center',
                 display: 'flex',
                 flexDirection: 'column',
@@ -1671,59 +1656,81 @@ export const PlayLearnPage: React.FC = () => {
                 minHeight: '150px',
               }}
             >
-              <span style={{ fontSize: '48px', marginBottom: '6px' }} className="animate-float">
-                {activeShape.symbol}
-              </span>
-              <h4 style={{ fontSize: '20px', color: activeShape.color, margin: '0 0 4px 0', fontWeight: 800 }}>
-                {activeShape.name}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '6px' }}>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '52px',
+                    fontWeight: 800,
+                    color: activeLetter.color,
+                  }}
+                >
+                  {activeLetter.letter}
+                </span>
+                <span style={{ fontSize: '46px' }}>{activeLetter.emoji}</span>
+              </div>
+              <h4 style={{ fontSize: '20px', color: '#1E293B', margin: '0 0 4px 0', fontWeight: 800 }}>
+                {activeLetter.letter} is for {activeLetter.word}!
               </h4>
-              <span
+              <p style={{ fontSize: '14px', color: '#475569', margin: '0 0 10px 0', fontWeight: 600 }}>
+                {activeLetter.displayText}
+              </p>
+              <button
+                onClick={() => handleSelectLetter(activeLetter)}
                 style={{
-                  fontSize: '12px',
+                  padding: '7px 18px',
+                  borderRadius: '14px',
+                  backgroundColor: activeLetter.color,
+                  color: '#FFFFFF',
+                  fontSize: '13px',
                   fontWeight: 700,
-                  color: '#64748B',
-                  backgroundColor: '#FFFFFF',
-                  padding: '2px 10px',
-                  borderRadius: '10px',
-                  marginBottom: '8px',
-                  border: '1px solid #E2E8F0',
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: `0 4px 12px ${activeLetter.color}40`,
                 }}
               >
-                {activeShape.corners}
-              </span>
-              <p style={{ fontSize: '13.5px', color: '#475569', margin: '0', fontWeight: 600 }}>
-                {activeShape.phrase}
-              </p>
+                Hear Phonics Again 🔊
+              </button>
             </div>
 
-            {/* Shape Buttons */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', padding: '4px' }}>
-              {shapesData.map((s) => {
-                const isSelected = activeShape.name === s.name;
+            {/* Letters Grid - All 26 A to Z letters */}
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                gap: '8px',
+                padding: '6px',
+              }}
+            >
+              {alphabetData.map((item) => {
+                const isSelected = activeLetter.letter === item.letter;
                 return (
                   <button
-                    key={s.name}
-                    onClick={() => handleSelectShape(s)}
+                    key={item.letter}
+                    onClick={() => handleSelectLetter(item)}
+                    title={`${item.letter} for ${item.word}`}
                     style={{
-                      padding: '10px 8px',
-                      borderRadius: '14px',
-                      backgroundColor: isSelected ? '#FEF08A' : '#F8FAFC',
-                      border: isSelected ? `2.5px solid ${s.color}` : '1.5px solid #E2E8F0',
+                      width: '42px',
+                      height: '42px',
+                      borderRadius: '12px',
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '18px',
+                      fontWeight: 800,
+                      backgroundColor: isSelected ? '#EFF6FF' : '#F8FAFC',
+                      color: isSelected ? item.color : '#334155',
+                      border: isSelected ? `2.5px solid ${item.color}` : '2px solid #E2E8F0',
                       cursor: 'pointer',
+                      transform: isSelected ? 'translateY(-2px)' : 'translateY(0)',
+                      boxShadow: isSelected ? `0 6px 12px ${item.color}40` : '0 2px 4px rgba(0,0,0,0.04)',
+                      transition: 'all 0.15s ease',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: '6px',
-                      fontSize: '13px',
-                      fontWeight: 700,
-                      color: isSelected ? '#854D0E' : '#334155',
-                      transform: isSelected ? 'translateY(-3px)' : 'translateY(0)',
-                      boxShadow: isSelected ? '0 6px 14px rgba(234, 179, 8, 0.25)' : '0 2px 4px rgba(0,0,0,0.04)',
-                      transition: 'all 0.18s ease',
+                      flexShrink: 0,
                     }}
                   >
-                    <span>{s.symbol}</span>
-                    <span>{s.name}</span>
+                    {item.letter}
                   </button>
                 );
               })}
@@ -1771,7 +1778,7 @@ export const PlayLearnPage: React.FC = () => {
                   borderRadius: '12px',
                 }}
               >
-                Healthy Habits
+                12 Sweet Fruits
               </span>
             </div>
 
@@ -1817,8 +1824,15 @@ export const PlayLearnPage: React.FC = () => {
               </button>
             </div>
 
-            {/* Fruits Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', padding: '4px' }}>
+            {/* Fruits Grid (All 12 Delicious Fruits) */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(105px, 1fr))',
+                gap: '10px',
+                padding: '4px',
+              }}
+            >
               {fruitsData.map((f) => {
                 const isSelected = activeFruit.name === f.name;
                 return (
@@ -1844,7 +1858,7 @@ export const PlayLearnPage: React.FC = () => {
                     }}
                   >
                     <span>{f.emoji}</span>
-                    <span>{f.name.split(' ')[1] || f.name}</span>
+                    <span>{f.shortName || f.name.split(' ').pop() || f.name}</span>
                   </button>
                 );
               })}

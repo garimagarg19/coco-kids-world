@@ -27,12 +27,16 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
 
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [currentTime, setCurrentTime] = useState<number>(0);
-  const [volume, setVolume] = useState<number>(0.8);
+  const [duration, setDuration] = useState<number>(rhyme.durationSeconds);
+  const [volume, setVolume] = useState<number>(0.85);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [voiceSingAlong, setVoiceSingAlong] = useState<boolean>(true);
   const [activeStanzaIndex, setActiveStanzaIndex] = useState<number>(0);
 
-  // Audio Context & Scheduling References
+  // Real HTML5 Audio element reference for MP3 playback
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Web Audio Context & Synthesizer Fallback References
   const audioCtxRef = useRef<AudioContext | null>(null);
   const masterGainRef = useRef<GainNode | null>(null);
   const timerIntervalRef = useRef<number | null>(null);
@@ -40,18 +44,19 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
   const isPlayingRef = useRef<boolean>(true);
   const currentTimeRef = useRef<number>(0);
 
-  // Keep ref synchronized with state
+  // Keep refs synchronized
   isPlayingRef.current = isPlaying;
   currentTimeRef.current = currentTime;
 
   // Format seconds to mm:ss
   const formatTime = (secs: number) => {
+    if (isNaN(secs) || !isFinite(secs) || secs < 0) return '0:00';
     const m = Math.floor(secs / 60);
     const s = Math.floor(secs % 60);
     return `${m}:${s < 10 ? '0' : ''}${s}`;
   };
 
-  // Get or initialize AudioContext
+  // Get or initialize AudioContext (for Web Audio synthesizer fallback)
   const getAudioContext = (): AudioContext | null => {
     if (typeof window === 'undefined') return null;
     if (!audioCtxRef.current) {
@@ -78,7 +83,7 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
     noteTimeoutsRef.current = [];
   };
 
-  // Speak stanzas aloud using SpeechSynthesis
+  // Speak stanzas aloud using SpeechSynthesis (fallback when no MP3)
   const speakCurrentStanza = (stanzaIdx: number) => {
     if (!voiceSingAlong || typeof window === 'undefined' || !('speechSynthesis' in window)) return;
     try {
@@ -87,8 +92,8 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
       if (!stanzaLines) return;
       const textToSpeak = stanzaLines.join(' ');
       const utterance = new SpeechSynthesisUtterance(textToSpeak);
-      utterance.pitch = 1.3; // Cute kid tone
-      utterance.rate = 0.9; // Friendly pace
+      utterance.pitch = 1.3;
+      utterance.rate = 0.9;
       utterance.volume = isMuted ? 0 : volume;
 
       const voices = window.speechSynthesis.getVoices();
@@ -109,12 +114,11 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
     }
   };
 
-  // Play a single musical note using Web Audio API
-  const playMelodyNote = (ctx: AudioContext, masterGain: GainNode, freq: number, duration: number) => {
-    if (freq <= 0) return; // Rest
+  // Play a single musical note using Web Audio API (fallback)
+  const playMelodyNote = (ctx: AudioContext, masterGain: GainNode, freq: number, noteDuration: number) => {
+    if (freq <= 0) return;
     try {
       const now = ctx.currentTime;
-      // Dual oscillator for rich, warm chime/glockenspiel tone
       const osc1 = ctx.createOscillator();
       const osc2 = ctx.createOscillator();
       const noteGain = ctx.createGain();
@@ -123,12 +127,11 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
       osc1.frequency.setValueAtTime(freq, now);
 
       osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(freq * 2, now); // Sweet upper octave shimmer
+      osc2.frequency.setValueAtTime(freq * 2, now);
 
-      // Envelope: soft attack, gentle decay
       noteGain.gain.setValueAtTime(0.001, now);
       noteGain.gain.linearRampToValueAtTime(0.35, now + 0.02);
-      noteGain.gain.exponentialRampToValueAtTime(0.001, now + Math.max(0.1, duration * 0.95));
+      noteGain.gain.exponentialRampToValueAtTime(0.001, now + Math.max(0.1, noteDuration * 0.95));
 
       osc1.connect(noteGain);
       osc2.connect(noteGain);
@@ -136,14 +139,14 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
 
       osc1.start(now);
       osc2.start(now);
-      osc1.stop(now + duration);
-      osc2.stop(now + duration);
+      osc1.stop(now + noteDuration);
+      osc2.stop(now + noteDuration);
     } catch {
-      // Audio node scheduling error ignored safely
+      // Ignored
     }
   };
 
-  // Schedule all melody notes from a specific start offset time
+  // Schedule all melody notes (fallback)
   const scheduleMelodyNotes = (startOffsetSeconds: number) => {
     clearNoteTimeouts();
     const ctx = getAudioContext();
@@ -168,8 +171,8 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
     });
   };
 
-  // Start or resume playback
-  const startPlayback = (fromTime: number = 0) => {
+  // Start synth playback (fallback)
+  const startSynthPlayback = (fromTime: number = 0) => {
     setIsPlaying(true);
     isPlayingRef.current = true;
     setCurrentTime(fromTime);
@@ -177,15 +180,14 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
 
     scheduleMelodyNotes(fromTime);
 
-    // Initial stanza voice
+    const totalDur = duration || rhyme.durationSeconds;
     const currentStanzaIdx = Math.min(
       rhyme.stanzas.length - 1,
-      Math.floor((fromTime / rhyme.durationSeconds) * rhyme.stanzas.length)
+      Math.floor((fromTime / totalDur) * rhyme.stanzas.length)
     );
     setActiveStanzaIndex(currentStanzaIdx);
     speakCurrentStanza(currentStanzaIdx);
 
-    // Start progress timer
     if (timerIntervalRef.current) {
       window.clearInterval(timerIntervalRef.current);
     }
@@ -197,8 +199,7 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
         const nextTime = prev + 0.25;
         currentTimeRef.current = nextTime;
 
-        // Update active stanza
-        const progressRatio = nextTime / rhyme.durationSeconds;
+        const progressRatio = nextTime / totalDur;
         const newStanzaIdx = Math.min(
           rhyme.stanzas.length - 1,
           Math.floor(progressRatio * rhyme.stanzas.length)
@@ -210,10 +211,8 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
           return newStanzaIdx;
         });
 
-        // Loop or end when duration reached
-        if (nextTime >= rhyme.durationSeconds) {
-          // Restart poem automatically for endless fun!
-          startPlayback(0);
+        if (nextTime >= totalDur) {
+          startSynthPlayback(0);
           return 0;
         }
         return nextTime;
@@ -221,8 +220,8 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
     }, 250);
   };
 
-  // Pause playback
-  const pausePlayback = () => {
+  // Pause synth playback (fallback)
+  const pauseSynthPlayback = () => {
     setIsPlaying(false);
     isPlayingRef.current = false;
     clearNoteTimeouts();
@@ -235,33 +234,80 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
     }
   };
 
+  // Seek / Scrub timeline
+  const handleSeek = (newTime: number) => {
+    setCurrentTime(newTime);
+    currentTimeRef.current = newTime;
+
+    const totalDur = duration || rhyme.durationSeconds;
+    const newStanzaIdx = Math.min(
+      rhyme.stanzas.length - 1,
+      Math.floor((newTime / totalDur) * rhyme.stanzas.length)
+    );
+    setActiveStanzaIndex(newStanzaIdx);
+
+    if (audioRef.current) {
+      audioRef.current.currentTime = newTime;
+      if (!isPlaying) {
+        audioRef.current.play().catch(() => {});
+        setIsPlaying(true);
+      }
+    } else {
+      pauseSynthPlayback();
+      startSynthPlayback(newTime);
+    }
+  };
+
+  // Play / Pause toggle
+  const togglePlayPause = () => {
+    playPopSound();
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        audioRef.current.play().catch(() => {});
+        setIsPlaying(true);
+      }
+    } else {
+      if (isPlaying) {
+        pauseSynthPlayback();
+      } else {
+        startSynthPlayback(currentTime);
+      }
+    }
+  };
+
   // Reset playback to 0:00
-  const resetPlayback = () => {
-    pausePlayback();
+  const handleReset = () => {
+    playPopSound();
     setCurrentTime(0);
     currentTimeRef.current = 0;
     setActiveStanzaIndex(0);
-    playPopSound();
-    startPlayback(0);
+
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {});
+      setIsPlaying(true);
+    } else {
+      pauseSynthPlayback();
+      startSynthPlayback(0);
+    }
   };
 
-  // COMPLETE RESET AND CLOSE HANDLER (Required on Cross button, backdrop click, Escape key)
+  // COMPLETE RESET AND CLOSE HANDLER
+  // Required on Cross button (X), backdrop click, Escape key, or Close button
   const handleCloseAndReset = () => {
-    // 1. Pause and clear all timeouts
-    pausePlayback();
-
-    // 2. Cancel any running speech synthesis
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
+    // 1. Immediately pause, rewind to 0, and clear HTML5 audio element
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      audioRef.current.src = '';
+      audioRef.current = null;
     }
 
-    // 3. Clear interval
-    if (timerIntervalRef.current) {
-      window.clearInterval(timerIntervalRef.current);
-      timerIntervalRef.current = null;
-    }
-
-    // 4. Reset audio context gain to silence
+    // 2. Pause and clear synth timeouts & SpeechSynthesis
+    pauseSynthPlayback();
     if (masterGainRef.current) {
       try {
         masterGainRef.current.gain.setValueAtTime(0, 0);
@@ -270,23 +316,89 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
       }
     }
 
-    // 5. Reset progress state
+    // 3. Reset state variables
     setCurrentTime(0);
     currentTimeRef.current = 0;
+    setActiveStanzaIndex(0);
     setIsPlaying(false);
     isPlayingRef.current = false;
 
-    // 6. Play sweet pop feedback and close popup
+    // 4. Pop sound and close
     playPopSound();
     onClose();
   };
 
-  // Start playing automatically when modal mounts with the selected rhyme
+  // Mount effect: load and play MP3 audio or fallback
   useEffect(() => {
-    startPlayback(0);
+    setDuration(rhyme.durationSeconds);
+    setCurrentTime(0);
+    setActiveStanzaIndex(0);
+
+    if (rhyme.audioSrc) {
+      const audio = new Audio(rhyme.audioSrc);
+      audio.preload = 'auto';
+      audio.volume = isMuted ? 0 : volume;
+      audio.muted = isMuted;
+      audioRef.current = audio;
+
+      audio.onloadedmetadata = () => {
+        if (audio.duration && !isNaN(audio.duration) && isFinite(audio.duration)) {
+          setDuration(audio.duration);
+        }
+      };
+
+      audio.ontimeupdate = () => {
+        setCurrentTime(audio.currentTime);
+        currentTimeRef.current = audio.currentTime;
+
+        const totalDur = audio.duration || rhyme.durationSeconds;
+        if (totalDur > 0 && rhyme.stanzas.length > 0) {
+          const ratio = Math.min(1, Math.max(0, audio.currentTime / totalDur));
+          const sIdx = Math.min(
+            rhyme.stanzas.length - 1,
+            Math.floor(ratio * rhyme.stanzas.length)
+          );
+          setActiveStanzaIndex(sIdx);
+        }
+      };
+
+      audio.onended = () => {
+        // Endless loop for kids
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+      };
+
+      audio.onplay = () => {
+        setIsPlaying(true);
+        isPlayingRef.current = true;
+      };
+
+      audio.onpause = () => {
+        setIsPlaying(false);
+        isPlayingRef.current = false;
+      };
+
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((err) => {
+            console.warn('Autoplay prevented or audio load issue:', err);
+          });
+      }
+    } else {
+      startSynthPlayback(0);
+    }
 
     return () => {
-      // Cleanup on unmount
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        audioRef.current.src = '';
+        audioRef.current = null;
+      }
       clearNoteTimeouts();
       if (timerIntervalRef.current) {
         window.clearInterval(timerIntervalRef.current);
@@ -295,10 +407,14 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
         window.speechSynthesis.cancel();
       }
     };
-  }, [rhyme.id]);
+  }, [rhyme.id, rhyme.audioSrc]);
 
-  // Update master volume when volume or isMuted changes
+  // Sync volume and mute to audio element and synth gain
   useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = isMuted ? 0 : volume;
+      audioRef.current.muted = isMuted;
+    }
     if (masterGainRef.current && audioCtxRef.current) {
       const targetGain = isMuted ? 0 : volume;
       masterGainRef.current.gain.setValueAtTime(targetGain, audioCtxRef.current.currentTime);
@@ -325,7 +441,9 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
     };
   }, []);
 
-  const progressPercent = Math.min(100, (currentTime / rhyme.durationSeconds) * 100);
+  const currentTotal = duration || rhyme.durationSeconds || 1;
+  const progressPercent = Math.min(100, Math.max(0, (currentTime / currentTotal) * 100));
+
 
   const modalContent = (
     <div
@@ -406,7 +524,7 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
                 Sing-Along Music Room
               </h4>
               <span style={{ fontSize: '12px', color: '#B45309', fontWeight: 600 }}>
-                {rhyme.theme} • {rhyme.time}
+                {rhyme.theme} • {formatTime(currentTotal)}
               </span>
             </div>
           </div>
@@ -548,7 +666,13 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
                       backgroundColor: isPlaying ? '#22C55E' : '#EF4444',
                     }}
                   />
-                  <span>{isPlaying ? 'Playing Melody & Vocals' : 'Paused'}</span>
+                  <span>
+                    {isPlaying
+                      ? rhyme.audioSrc
+                        ? 'Playing Studio Song'
+                        : 'Playing Melody & Vocals'
+                      : 'Paused'}
+                  </span>
                 </div>
 
                 <h3
@@ -592,7 +716,7 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
                     />
                   ))}
                   <span style={{ fontSize: '11px', color: '#DDD6FE', marginLeft: '6px' }}>
-                    Music Box Melodies 🎼
+                    {rhyme.audioSrc ? 'Studio Kids Song 🎼' : 'Music Box Melodies 🎼'}
                   </span>
                 </div>
               </div>
@@ -614,9 +738,8 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
                   const rect = e.currentTarget.getBoundingClientRect();
                   const clickX = e.clientX - rect.left;
                   const ratio = Math.max(0, Math.min(1, clickX / rect.width));
-                  const newTime = ratio * rhyme.durationSeconds;
-                  pausePlayback();
-                  startPlayback(newTime);
+                  const newTime = ratio * currentTotal;
+                  handleSeek(newTime);
                 }}
               >
                 <div
@@ -625,7 +748,7 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
                     width: `${progressPercent}%`,
                     background: 'linear-gradient(90deg, #F472B6 0%, #FBBF24 100%)',
                     borderRadius: '9999px',
-                    transition: 'width 0.25s linear',
+                    transition: 'width 0.2s linear',
                   }}
                 />
               </div>
@@ -642,7 +765,7 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
                 }}
               >
                 <span>{formatTime(currentTime)}</span>
-                <span>{formatTime(rhyme.durationSeconds)}</span>
+                <span>{formatTime(currentTotal)}</span>
               </div>
             </div>
 
@@ -663,8 +786,8 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
                 {/* Reset / Rewind Button */}
                 <button
                   type="button"
-                  title="Restart from beginning"
-                  onClick={resetPlayback}
+                  title="Restart poem from beginning"
+                  onClick={handleReset}
                   style={{
                     width: '38px',
                     height: '38px',
@@ -694,14 +817,7 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
                 <button
                   type="button"
                   title={isPlaying ? 'Pause' : 'Play'}
-                  onClick={() => {
-                    playPopSound();
-                    if (isPlaying) {
-                      pausePlayback();
-                    } else {
-                      startPlayback(currentTime);
-                    }
-                  }}
+                  onClick={togglePlayPause}
                   style={{
                     padding: '8px 20px',
                     borderRadius: '20px',
@@ -745,41 +861,60 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
 
               {/* Right Controls: Voice Toggle & Volume */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                {/* Voice Sing-Along Toggle */}
-                <button
-                  type="button"
-                  title={voiceSingAlong ? 'Vocals On: Click to mute voice' : 'Vocals Off: Click to hear voice'}
-                  onClick={() => {
-                    const nextVal = !voiceSingAlong;
-                    setVoiceSingAlong(nextVal);
-                    if (!nextVal && typeof window !== 'undefined' && 'speechSynthesis' in window) {
-                      window.speechSynthesis.cancel();
-                    } else if (nextVal && isPlaying) {
-                      speakCurrentStanza(activeStanzaIndex);
-                    }
-                  }}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '6px 12px',
-                    borderRadius: '16px',
-                    backgroundColor: voiceSingAlong
-                      ? 'rgba(245, 158, 11, 0.25)'
-                      : 'rgba(255, 255, 255, 0.12)',
-                    color: voiceSingAlong ? '#FDE047' : '#94A3B8',
-                    border: voiceSingAlong
-                      ? '1px solid rgba(245, 158, 11, 0.5)'
-                      : '1px solid rgba(255, 255, 255, 0.2)',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  <Mic size={14} />
-                  <span>Voice: {voiceSingAlong ? 'ON' : 'OFF'}</span>
-                </button>
+                {rhyme.audioSrc ? (
+                  <div
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '6px 12px',
+                      borderRadius: '16px',
+                      backgroundColor: 'rgba(16, 185, 129, 0.25)',
+                      color: '#6EE7B7',
+                      border: '1px solid rgba(16, 185, 129, 0.4)',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                    }}
+                  >
+                    <Disc size={14} />
+                    <span>Studio MP3 🎶</span>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    title={voiceSingAlong ? 'Vocals On: Click to mute voice' : 'Vocals Off: Click to hear voice'}
+                    onClick={() => {
+                      const nextVal = !voiceSingAlong;
+                      setVoiceSingAlong(nextVal);
+                      if (!nextVal && typeof window !== 'undefined' && 'speechSynthesis' in window) {
+                        window.speechSynthesis.cancel();
+                      } else if (nextVal && isPlaying) {
+                        speakCurrentStanza(activeStanzaIndex);
+                      }
+                    }}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '6px 12px',
+                      borderRadius: '16px',
+                      backgroundColor: voiceSingAlong
+                        ? 'rgba(245, 158, 11, 0.25)'
+                        : 'rgba(255, 255, 255, 0.12)',
+                      color: voiceSingAlong ? '#FDE047' : '#94A3B8',
+                      border: voiceSingAlong
+                        ? '1px solid rgba(245, 158, 11, 0.5)'
+                        : '1px solid rgba(255, 255, 255, 0.2)',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease',
+                    }}
+                  >
+                    <Mic size={14} />
+                    <span>Voice: {voiceSingAlong ? 'ON' : 'OFF'}</span>
+                  </button>
+                )}
 
                 {/* Mute/Volume Icon & Slider */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -890,9 +1025,8 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
                     key={sIdx}
                     onClick={() => {
                       // Click stanza to jump to that stanza in audio
-                      const targetTime = (sIdx / rhyme.stanzas.length) * rhyme.durationSeconds;
-                      pausePlayback();
-                      startPlayback(targetTime);
+                      const targetTime = (sIdx / rhyme.stanzas.length) * currentTotal;
+                      handleSeek(targetTime);
                     }}
                     style={{
                       padding: '14px 18px',

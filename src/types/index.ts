@@ -42,6 +42,7 @@ export interface ChannelInfo {
   avatarUrl: string;
   description: string;
   subscribersBadge: string;
+  instagramUrl?: string;
 }
 
 export interface NavItem {

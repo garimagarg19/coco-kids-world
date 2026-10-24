@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, ShieldCheck, Music, Sparkles, Star } from 'lucide-react';
+import { Heart, ShieldCheck, Star } from 'lucide-react';
 import { YoutubeIcon } from '../common/YoutubeIcon';
+import { InstagramIcon } from '../common/InstagramIcon';
 import { CHARACTERS } from '../../data/characters';
 
 
@@ -137,41 +138,80 @@ export const Footer: React.FC = () => {
             <p style={{ color: '#64748B', fontSize: '14px', lineHeight: 1.6, marginBottom: '16px' }}>
               A magical universe created for toddlers and young explorers to discover the wonders of friendship, music, and learning through colorful 3D cartoons.
             </p>
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <a
                 href="https://youtube.com/@CocoKidsWorld-h1o"
                 target="_blank"
                 rel="noreferrer"
+                title="Watch on YouTube"
+                aria-label="Coco Kids World on YouTube"
                 style={{
-                  width: '38px',
-                  height: '38px',
-                  borderRadius: '12px',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '14px',
                   background: '#FEE2E2',
                   color: '#EF4444',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  border: '1px solid #FECACA',
+                  border: '1.5px solid #FECACA',
+                  boxShadow: '0 2px 8px rgba(239, 68, 68, 0.15)',
+                  transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                  textDecoration: 'none',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-3px) scale(1.08)';
+                  e.currentTarget.style.background = '#EF4444';
+                  e.currentTarget.style.color = '#FFFFFF';
+                  e.currentTarget.style.boxShadow = '0 6px 14px rgba(239, 68, 68, 0.35)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.background = '#FEE2E2';
+                  e.currentTarget.style.color = '#EF4444';
+                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(239, 68, 68, 0.15)';
                 }}
               >
-                <YoutubeIcon size={20} fill="#EF4444" />
+                <YoutubeIcon size={20} fill="currentColor" />
               </a>
-              <span
+
+              <a
+                href="https://www.instagram.com/cocokidsworld986/"
+                target="_blank"
+                rel="noreferrer"
+                title="Follow on Instagram"
+                aria-label="Coco Kids World on Instagram"
                 style={{
-                  display: 'inline-flex',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '14px',
+                  background: 'linear-gradient(135deg, #FFF1F2 0%, #FCE7F3 100%)',
+                  color: '#E1306C',
+                  display: 'flex',
                   alignItems: 'center',
-                  gap: '6px',
-                  padding: '6px 14px',
-                  borderRadius: '12px',
-                  background: '#FEF3C7',
-                  color: '#B45309',
-                  fontSize: '12px',
-                  fontWeight: 700,
-                  fontFamily: 'var(--font-display)',
+                  justifyContent: 'center',
+                  border: '1.5px solid #FBCFE8',
+                  boxShadow: '0 2px 8px rgba(225, 48, 108, 0.15)',
+                  transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                  textDecoration: 'none',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-3px) scale(1.08)';
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #F58529, #DD2A7B, #8134AF)';
+                  e.currentTarget.style.color = '#FFFFFF';
+                  e.currentTarget.style.borderColor = 'transparent';
+                  e.currentTarget.style.boxShadow = '0 6px 14px rgba(221, 42, 123, 0.35)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #FFF1F2 0%, #FCE7F3 100%)';
+                  e.currentTarget.style.color = '#E1306C';
+                  e.currentTarget.style.borderColor = '#FBCFE8';
+                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(225, 48, 108, 0.15)';
                 }}
               >
-                <Sparkles size={14} /> 100K+ Little Friends
-              </span>
+                <InstagramIcon size={20} />
+              </a>
             </div>
           </div>
 

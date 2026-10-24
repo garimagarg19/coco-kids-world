@@ -1,3 +1,5 @@
+import { AUDIO_ASSETS } from '../assets/music';
+
 export interface MelodyNote {
   note: number;
   duration: number; // in seconds
@@ -15,6 +17,7 @@ export interface RhymeItem {
   shortLyrics: string;
   stanzas: string[][]; // Array of stanzas, each stanza is an array of lines
   melody: MelodyNote[];
+  audioSrc?: string;
 }
 
 export const NOTES = {
@@ -44,6 +47,7 @@ export const RHYMES_DATA: RhymeItem[] = [
     badgeColor: '#7C3AED',
     time: '3:10',
     durationSeconds: 32,
+    audioSrc: AUDIO_ASSETS.twinkle,
     emoji: '🌟',
     shortLyrics: 'Twinkle, twinkle, little star, how I wonder what you are! Up above the world so high, like a diamond in the sky...',
     stanzas: [
@@ -133,6 +137,7 @@ export const RHYMES_DATA: RhymeItem[] = [
     badgeColor: '#B45309',
     time: '2:45',
     durationSeconds: 28,
+    audioSrc: AUDIO_ASSETS.wheels,
     emoji: '🚌',
     shortLyrics: 'The wheels on the bus go round and round, round and round, round and round! All through the candy town...',
     stanzas: [
@@ -208,6 +213,7 @@ export const RHYMES_DATA: RhymeItem[] = [
     badgeColor: '#BE185D',
     time: '3:30',
     durationSeconds: 26,
+    audioSrc: AUDIO_ASSETS.bunnyHop,
     emoji: '🐰',
     shortLyrics: 'Put your paws up high, touch the sunny sky! Now hop, hop, hop, don’t you ever stop!',
     stanzas: [
@@ -270,6 +276,7 @@ export const RHYMES_DATA: RhymeItem[] = [
     badgeColor: '#047857',
     time: '3:50',
     durationSeconds: 30,
+    audioSrc: AUDIO_ASSETS.oldMacdonald,
     emoji: '🦁',
     shortLyrics: 'Old MacDonald had a farm, E-I-E-I-O! And on that farm he had a lion cub, E-I-E-I-O!',
     stanzas: [
@@ -334,6 +341,7 @@ export const RHYMES_DATA: RhymeItem[] = [
     badgeColor: '#1D4ED8',
     time: '2:55',
     durationSeconds: 27,
+    audioSrc: AUDIO_ASSETS.ifHappy,
     emoji: '👏',
     shortLyrics: 'If you’re happy and you know it, clap your hands! If you’re happy and you know it, shout HOORAY!',
     stanzas: [
@@ -404,6 +412,7 @@ export const RHYMES_DATA: RhymeItem[] = [
     badgeColor: '#6D28D9',
     time: '4:20',
     durationSeconds: 34,
+    audioSrc: AUDIO_ASSETS.sweetDreams,
     emoji: '🌙',
     shortLyrics: 'Soft pink clouds and gentle breeze, sleepy birds upon the trees. Close your eyes and dream of stars...',
     stanzas: [
