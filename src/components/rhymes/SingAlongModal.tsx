@@ -31,7 +31,7 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
   const [volume, setVolume] = useState<number>(0.85);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [voiceSingAlong, setVoiceSingAlong] = useState<boolean>(true);
-  const [activeStanzaIndex, setActiveStanzaIndex] = useState<number>(0);
+  const [activeStanzaIndex, setActiveStanzaIndex] = useState<number>(-1);
 
   // Real HTML5 Audio element reference for MP3 playback
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -47,6 +47,40 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
   // Keep refs synchronized
   isPlayingRef.current = isPlaying;
   currentTimeRef.current = currentTime;
+
+  // Active stanza auto-scroll ref
+  const activeStanzaRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (activeStanzaIndex >= 0 && activeStanzaRef.current) {
+      activeStanzaRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [activeStanzaIndex]);
+
+  // Helper to determine the active stanza index based on rhyme.stanzaTimings or linear ratio
+  const getStanzaIndex = (time: number, rhymeItem: RhymeItem, totalDur: number): number => {
+    if (rhymeItem.stanzaTimings && rhymeItem.stanzaTimings.length > 0) {
+      const timings = rhymeItem.stanzaTimings;
+      // Before first verse begins (intro tuning / silence), do NOT highlight any verse
+      if (time < timings[0]) return -1;
+      // After lyrics have ended (outro tuning), turn off highlight
+      if (rhymeItem.lyricsEndTime !== undefined && time >= rhymeItem.lyricsEndTime) {
+        return -1;
+      }
+      for (let i = timings.length - 1; i >= 0; i--) {
+        if (time >= timings[i]) {
+          return i;
+        }
+      }
+      return -1;
+    }
+    if (totalDur <= 0 || rhymeItem.stanzas.length === 0) return 0;
+    const ratio = Math.min(1, Math.max(0, time / totalDur));
+    return Math.min(
+      rhymeItem.stanzas.length - 1,
+      Math.floor(ratio * rhymeItem.stanzas.length)
+    );
+  };
 
   // Format seconds to mm:ss
   const formatTime = (secs: number) => {
@@ -181,10 +215,7 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
     scheduleMelodyNotes(fromTime);
 
     const totalDur = duration || rhyme.durationSeconds;
-    const currentStanzaIdx = Math.min(
-      rhyme.stanzas.length - 1,
-      Math.floor((fromTime / totalDur) * rhyme.stanzas.length)
-    );
+    const currentStanzaIdx = getStanzaIndex(fromTime, rhyme, totalDur);
     setActiveStanzaIndex(currentStanzaIdx);
     speakCurrentStanza(currentStanzaIdx);
 
@@ -199,11 +230,8 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
         const nextTime = prev + 0.25;
         currentTimeRef.current = nextTime;
 
-        const progressRatio = nextTime / totalDur;
-        const newStanzaIdx = Math.min(
-          rhyme.stanzas.length - 1,
-          Math.floor(progressRatio * rhyme.stanzas.length)
-        );
+        const totalDur = duration || rhyme.durationSeconds;
+        const newStanzaIdx = getStanzaIndex(nextTime, rhyme, totalDur);
         setActiveStanzaIndex((curStanza) => {
           if (curStanza !== newStanzaIdx) {
             speakCurrentStanza(newStanzaIdx);
@@ -240,10 +268,7 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
     currentTimeRef.current = newTime;
 
     const totalDur = duration || rhyme.durationSeconds;
-    const newStanzaIdx = Math.min(
-      rhyme.stanzas.length - 1,
-      Math.floor((newTime / totalDur) * rhyme.stanzas.length)
-    );
+    const newStanzaIdx = getStanzaIndex(newTime, rhyme, totalDur);
     setActiveStanzaIndex(newStanzaIdx);
 
     if (audioRef.current) {
@@ -283,7 +308,8 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
     playPopSound();
     setCurrentTime(0);
     currentTimeRef.current = 0;
-    setActiveStanzaIndex(0);
+    const totalDur = duration || rhyme.durationSeconds;
+    setActiveStanzaIndex(getStanzaIndex(0, rhyme, totalDur));
 
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
@@ -319,7 +345,8 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
     // 3. Reset state variables
     setCurrentTime(0);
     currentTimeRef.current = 0;
-    setActiveStanzaIndex(0);
+    const totalDur = duration || rhyme.durationSeconds;
+    setActiveStanzaIndex(getStanzaIndex(0, rhyme, totalDur));
     setIsPlaying(false);
     isPlayingRef.current = false;
 
@@ -332,7 +359,7 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
   useEffect(() => {
     setDuration(rhyme.durationSeconds);
     setCurrentTime(0);
-    setActiveStanzaIndex(0);
+    setActiveStanzaIndex(getStanzaIndex(0, rhyme, rhyme.durationSeconds));
 
     if (rhyme.audioSrc) {
       const audio = new Audio(rhyme.audioSrc);
@@ -353,11 +380,7 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
 
         const totalDur = audio.duration || rhyme.durationSeconds;
         if (totalDur > 0 && rhyme.stanzas.length > 0) {
-          const ratio = Math.min(1, Math.max(0, audio.currentTime / totalDur));
-          const sIdx = Math.min(
-            rhyme.stanzas.length - 1,
-            Math.floor(ratio * rhyme.stanzas.length)
-          );
+          const sIdx = getStanzaIndex(audio.currentTime, rhyme, totalDur);
           setActiveStanzaIndex(sIdx);
         }
       };
@@ -669,7 +692,11 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
                   <span>
                     {isPlaying
                       ? rhyme.audioSrc
-                        ? 'Playing Studio Song'
+                        ? activeStanzaIndex === -1
+                          ? currentTime < (rhyme.stanzaTimings?.[0] ?? 0)
+                            ? 'Intro Music Playing 🎶'
+                            : 'Outro Music Playing 🎵'
+                          : 'Playing Studio Song'
                         : 'Playing Melody & Vocals'
                       : 'Paused'}
                   </span>
@@ -1023,9 +1050,15 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
                 return (
                   <div
                     key={sIdx}
+                    ref={isActive ? activeStanzaRef : null}
                     onClick={() => {
                       // Click stanza to jump to that stanza in audio
-                      const targetTime = (sIdx / rhyme.stanzas.length) * currentTotal;
+                      let targetTime: number;
+                      if (rhyme.stanzaTimings && rhyme.stanzaTimings[sIdx] !== undefined) {
+                        targetTime = rhyme.stanzaTimings[sIdx];
+                      } else {
+                        targetTime = (sIdx / rhyme.stanzas.length) * currentTotal;
+                      }
                       handleSeek(targetTime);
                     }}
                     style={{
@@ -1077,6 +1110,11 @@ export const SingAlongModal: React.FC<SingAlongModalProps> = ({ rhyme, onClose }
                       }}
                     >
                       Verse {sIdx + 1}
+                      {rhyme.stanzaTimings && rhyme.stanzaTimings[sIdx] !== undefined && (
+                        <span style={{ marginLeft: '6px', opacity: 0.85, fontWeight: 600 }}>
+                          • {formatTime(rhyme.stanzaTimings[sIdx])}
+                        </span>
+                      )}
                     </span>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>

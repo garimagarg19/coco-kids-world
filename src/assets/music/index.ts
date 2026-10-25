@@ -12,6 +12,7 @@ export const AUDIO_ASSETS = {
   twinkle: findAudio('twinkle twinkle'),
   wheels: findAudio('wheels on the bus'),
   bunnyHop: findAudio('put your hands in the air'),
+  handsInAir: findAudio('put your hands in the air'),
   oldMacdonald: findAudio('old macdonald'),
   ifHappy: findAudio('if you'),
   sweetDreams: findAudio('clouds are sleeping'),

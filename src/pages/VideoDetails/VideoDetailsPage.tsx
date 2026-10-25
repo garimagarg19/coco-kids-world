@@ -8,22 +8,11 @@ import { SAMPLE_VIDEOS } from '../../data/sampleData';
 export const VideoDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [isPlaying, setIsPlaying] = useState(false);
-  // const [likesCount, setLikesCount] = useState(2450);
-  // const [hasLiked, setHasLiked] = useState(false);
 
   // Find matching video or fallback to first
   const currentVideo = SAMPLE_VIDEOS.find((v) => v.id === id) || SAMPLE_VIDEOS[0];
-  const relatedVideos = SAMPLE_VIDEOS.filter((v) => v.id !== currentVideo.id).slice(0, 3);
+  const relatedVideos = SAMPLE_VIDEOS.filter((v) => v.id !== currentVideo.id);
 
-  // const handleLike = () => {
-  //   if (!hasLiked) {
-  //     setLikesCount(likesCount + 1);
-  //     setHasLiked(true);
-  //   } else {
-  //     setLikesCount(likesCount - 1);
-  //     setHasLiked(false);
-  //   }
-  // };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
@@ -134,7 +123,7 @@ export const VideoDetailsPage: React.FC = () => {
                       textShadow: '0 2px 6px rgba(0,0,0,0.8)',
                     }}
                   >
-                    Click to Play Cartoon! ✨
+                    Click to Play! ✨
                   </span>
                 </div>
               </div>
@@ -231,26 +220,6 @@ export const VideoDetailsPage: React.FC = () => {
                 borderTop: '1px solid #F1F5F9',
               }}
             >
-              {/* <button
-                onClick={handleLike}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '10px 20px',
-                  borderRadius: '18px',
-                  backgroundColor: hasLiked ? '#FCE7F3' : '#F8FAFC',
-                  color: hasLiked ? '#EC4899' : '#64748B',
-                  border: `2px solid ${hasLiked ? '#F472B6' : '#E2E8F0'}`,
-                  fontSize: '14px',
-                  fontWeight: 700,
-                  fontFamily: 'var(--font-display)',
-                  transition: 'all 0.15s ease',
-                }}
-              >
-                <Heart size={18} fill={hasLiked ? '#EC4899' : 'none'} />
-                <span>{likesCount} Loves</span>
-              </button> */}
 
               <div
                 style={{
