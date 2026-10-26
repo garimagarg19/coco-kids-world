@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Gamepad2,
   Sparkles,
@@ -25,6 +25,7 @@ import {
   playCrunchSound,
   playFanfare,
 } from '../../utils/soundEffects';
+import { AUDIO_ASSETS, ANIMAL_AUDIO_ASSETS } from '../../assets/music';
 
 interface ColorItem {
   name: string;
@@ -196,19 +197,64 @@ export const PlayLearnPage: React.FC = () => {
   ];
   const [activeAnimal, setActiveAnimal] = useState<AnimalItem>(animals[0]);
   const [isAnimalPlaying, setIsAnimalPlaying] = useState(false);
+  const currentAnimalAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Stop playing audio on component unmount
+  useEffect(() => {
+    return () => {
+      if (currentAnimalAudioRef.current) {
+        currentAnimalAudioRef.current.pause();
+        currentAnimalAudioRef.current = null;
+      }
+    };
+  }, []);
 
   const handlePlayAnimalSound = (animal: AnimalItem) => {
     setActiveAnimal(animal);
     if (!soundEnabled) return;
 
-    setIsAnimalPlaying(true);
-    // Play ONLY the authentic animal sound effect
-    playAnimalSoundEffect(animal.id);
+    // Stop previous animal audio so sounds don't overlap
+    if (currentAnimalAudioRef.current) {
+      currentAnimalAudioRef.current.pause();
+      currentAnimalAudioRef.current.currentTime = 0;
+      currentAnimalAudioRef.current = null;
+    }
 
-    setTimeout(() => {
-      setIsAnimalPlaying(false), 800;
-    });
+    setIsAnimalPlaying(true);
+
+    // Look for real audio file (.mpeg) in ANIMAL_AUDIO_ASSETS or AUDIO_ASSETS
+    const audioSrc =
+      ANIMAL_AUDIO_ASSETS[animal.id] ||
+      (AUDIO_ASSETS as Record<string, string | undefined>)[animal.id];
+
+    if (audioSrc) {
+      const audio = new Audio(audioSrc);
+      currentAnimalAudioRef.current = audio;
+
+      audio.onended = () => {
+        setIsAnimalPlaying(false);
+        currentAnimalAudioRef.current = null;
+      };
+
+      audio.onerror = () => {
+        // Fallback to synthesized web audio if file fails
+        playAnimalSoundEffect(animal.id);
+        setTimeout(() => setIsAnimalPlaying(false), 800);
+      };
+
+      audio.play().catch(() => {
+        playAnimalSoundEffect(animal.id);
+        setTimeout(() => setIsAnimalPlaying(false), 800);
+      });
+    } else {
+      // Fallback for animals without audio file (duck, cow, frog)
+      playAnimalSoundEffect(animal.id);
+      setTimeout(() => {
+        setIsAnimalPlaying(false);
+      }, 800);
+    }
   };
+
 
   // --- 3. Body Parts State ---
   const bodyParts: BodyPartItem[] = [
@@ -697,7 +743,7 @@ export const PlayLearnPage: React.FC = () => {
           <button
             onClick={() => {
               if (soundEnabled) {
-                playAnimalSoundEffect('lion');
+                handlePlayAnimalSound(animals[0]);
               }
             }}
             style={{
@@ -720,7 +766,16 @@ export const PlayLearnPage: React.FC = () => {
           </button>
 
           <button
-            onClick={() => setSoundEnabled(!soundEnabled)}
+            onClick={() => {
+              const next = !soundEnabled;
+              setSoundEnabled(next);
+              if (!next && currentAnimalAudioRef.current) {
+                currentAnimalAudioRef.current.pause();
+                currentAnimalAudioRef.current.currentTime = 0;
+                currentAnimalAudioRef.current = null;
+                setIsAnimalPlaying(false);
+              }
+            }}
             style={{
               padding: '8px 16px',
               borderRadius: '14px',
@@ -907,7 +962,7 @@ export const PlayLearnPage: React.FC = () => {
                 }}
               >
                 <Volume2 size={16} />
-                <span>Play Animal Sound 🔊</span>
+                <span>{isAnimalPlaying ? 'Playing Sound... 🔊' : 'Play Animal Sound 🔊'}</span>
               </button>
             </div>
 
