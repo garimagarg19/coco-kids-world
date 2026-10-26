@@ -30,6 +30,7 @@ export const ShortsSlider: React.FC<ShortsSliderProps> = ({
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [internalCategory, setInternalCategory] = useState<string>('all');
   const [activeModalShort, setActiveModalShort] = useState<ShortItem | null>(null);
+  const [isModalPlaying, setIsModalPlaying] = useState<boolean>(false);
 
   const isControlled = controlledCategory !== undefined;
   const activeCategory = isControlled ? controlledCategory : internalCategory;
@@ -494,7 +495,10 @@ export const ShortsSlider: React.FC<ShortsSliderProps> = ({
               >
                 {/* 9:16 Vertical Video Preview Container */}
                 <div
-                  onClick={() => setActiveModalShort(short)}
+                  onClick={() => {
+                    setActiveModalShort(short);
+                    setIsModalPlaying(false);
+                  }}
                   style={{
                     position: 'relative',
                     width: '100%',
@@ -575,8 +579,8 @@ export const ShortsSlider: React.FC<ShortsSliderProps> = ({
                       </span>
                     </div>
 
-                    {/* Middle: Play Button Overlay */}
-                    <div
+                    {/* Middle: Play Button Overlay (commented out - card click directly opens modal) */}
+                    {/* <div
                       style={{
                         alignSelf: 'center',
                         width: '44px',
@@ -592,7 +596,7 @@ export const ShortsSlider: React.FC<ShortsSliderProps> = ({
                       }}
                     >
                       <Play size={20} fill="#EC4899" style={{ marginLeft: '2px' }} />
-                    </div>
+                    </div> */}
 
                     {/* Bottom: Views / Category tag */}
                     <div>
@@ -677,7 +681,10 @@ export const ShortsSlider: React.FC<ShortsSliderProps> = ({
                   >
                     <button
                       type="button"
-                      onClick={() => setActiveModalShort(short)}
+                      onClick={() => {
+                        setActiveModalShort(short);
+                        setIsModalPlaying(false);
+                      }}
                       style={{
                         fontSize: '12px',
                         color: '#EC4899',
@@ -747,7 +754,10 @@ export const ShortsSlider: React.FC<ShortsSliderProps> = ({
             padding: '16px',
             animation: 'fadeIn 0.2s ease',
           }}
-          onClick={() => setActiveModalShort(null)}
+          onClick={() => {
+            setActiveModalShort(null);
+            setIsModalPlaying(false);
+          }}
         >
           <div
             onClick={(e) => e.stopPropagation()}
@@ -797,7 +807,10 @@ export const ShortsSlider: React.FC<ShortsSliderProps> = ({
               <button
                 type="button"
                 aria-label="Close modal"
-                onClick={() => setActiveModalShort(null)}
+                onClick={() => {
+                  setActiveModalShort(null);
+                  setIsModalPlaying(false);
+                }}
                 style={{
                   width: '32px',
                   height: '32px',
@@ -825,17 +838,94 @@ export const ShortsSlider: React.FC<ShortsSliderProps> = ({
                 backgroundColor: '#000000',
               }}
             >
-              <iframe
-                src={`https://www.youtube-nocookie.com/embed/${activeModalShort.youtubeId}?autoplay=1&rel=0&modestbranding=1`}
-                title={activeModalShort.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  border: 'none',
-                }}
-              />
+              {!isModalPlaying ? (
+                <div
+                  style={{
+                    position: 'relative',
+                    width: '100%',
+                    height: '100%',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  onClick={() => setIsModalPlaying(true)}
+                >
+                  <img
+                    src={activeModalShort.thumbnail}
+                    alt={activeModalShort.title}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                  />
+                  {/* Dark gradient overlay for text readability & play button pop */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background:
+                        'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.75) 100%)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '12px',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: '70px',
+                        height: '70px',
+                        borderRadius: '50%',
+                        background: 'linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 8px 25px rgba(236, 72, 153, 0.55)',
+                        border: '3.5px solid #FFFFFF',
+                        transition: 'transform 0.2s ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.08)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }}
+                    >
+                      <Play size={32} fill="#FFFFFF" style={{ marginLeft: '3px' }} />
+                    </div>
+                    <span
+                      style={{
+                        color: '#FFFFFF',
+                        fontWeight: 700,
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '14px',
+                        textShadow: '0 2px 6px rgba(0,0,0,0.8)',
+                        backgroundColor: 'rgba(0, 0, 0, 0.55)',
+                        padding: '5px 14px',
+                        borderRadius: '12px',
+                        backdropFilter: 'blur(4px)',
+                      }}
+                    >
+                      Click to Play! ✨
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${activeModalShort.youtubeId}?autoplay=1&rel=0&modestbranding=1`}
+                  title={activeModalShort.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    border: 'none',
+                  }}
+                />
+              )}
             </div>
 
             {/* Modal Bottom Details and Navigation */}
@@ -873,7 +963,12 @@ export const ShortsSlider: React.FC<ShortsSliderProps> = ({
                         <button
                           type="button"
                           disabled={!prevShort}
-                          onClick={() => prevShort && setActiveModalShort(prevShort)}
+                          onClick={() => {
+                            if (prevShort) {
+                              setActiveModalShort(prevShort);
+                              setIsModalPlaying(false);
+                            }
+                          }}
                           style={{
                             padding: '6px 12px',
                             borderRadius: '14px',
@@ -893,7 +988,12 @@ export const ShortsSlider: React.FC<ShortsSliderProps> = ({
                         <button
                           type="button"
                           disabled={!nextShort}
-                          onClick={() => nextShort && setActiveModalShort(nextShort)}
+                          onClick={() => {
+                            if (nextShort) {
+                              setActiveModalShort(nextShort);
+                              setIsModalPlaying(false);
+                            }
+                          }}
                           style={{
                             padding: '6px 12px',
                             borderRadius: '14px',

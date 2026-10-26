@@ -136,13 +136,76 @@ export const YOUTUBE_VIDEOS: VideoItem[] = [
  */
 export const YOUTUBE_SHORTS: ShortItem[] = [
   {
+    id: 'lyqtq75So1I',
+    youtubeId: 'lyqtq75So1I',
+    youtubeUrl: 'https://www.youtube.com/shorts/lyqtq75So1I',
+    title: '🍭 Magical Candy Island 🍬 Dancing Gummy Bears & Sweet Friends! 🌈 #shorts',
+    category: 'adventures',
+    thumbnail: 'https://i.ytimg.com/vi/lyqtq75So1I/hqdefault.jpg',
+    views: 'Candy Island',
+  },
+  {
+    id: '1FuCUmNWFQk',
+    youtubeId: '1FuCUmNWFQk',
+    youtubeUrl: 'https://www.youtube.com/shorts/1FuCUmNWFQk',
+    title: 'Jhinga Lala Hu Hu 😂 Cute 3D Cartoon Baby Dance | Funny Village Animation | Coco Kids World 👶 #shorts',
+    category: 'songs',
+    thumbnail: 'https://i.ytimg.com/vi/1FuCUmNWFQk/hqdefault.jpg',
+    views: 'Dance Fun',
+  },
+  {
+    id: '6LCSsvuvwJk',
+    youtubeId: '6LCSsvuvwJk',
+    youtubeUrl: 'https://www.youtube.com/shorts/6LCSsvuvwJk',
+    title: '🍕 Tiny Chefs Make a Yummy Pizza! 😍 | Cute Kids Animation #shorts',
+    category: 'stories',
+    thumbnail: 'https://i.ytimg.com/vi/6LCSsvuvwJk/hqdefault.jpg',
+    views: 'Pizza Cooking',
+  },
+  {
+    id: 'Jid_1jXH5os',
+    youtubeId: 'Jid_1jXH5os',
+    youtubeUrl: 'https://www.youtube.com/shorts/Jid_1jXH5os',
+    title: '👾 Cute Purple Monster Gets Trapped in a Magic Bubble! 🫧✨ #Shorts',
+    category: 'adventures',
+    thumbnail: 'https://i.ytimg.com/vi/Jid_1jXH5os/hqdefault.jpg',
+    views: 'Magic Bubble',
+  },
+  {
+    id: 'siWEIHR3-2c',
+    youtubeId: 'siWEIHR3-2c',
+    youtubeUrl: 'https://www.youtube.com/shorts/siWEIHR3-2c',
+    title: '🦷 Dirty Tooth Eats Chowmein! 😱🍜 Toothbrush to the Rescue! ✨ #Shorts',
+    category: 'learning',
+    thumbnail: 'https://i.ytimg.com/vi/siWEIHR3-2c/hqdefault.jpg',
+    views: 'Teeth Care',
+  },
+  {
+    id: 'ZqlqbEeKHq8',
+    youtubeId: 'ZqlqbEeKHq8',
+    youtubeUrl: 'https://www.youtube.com/shorts/ZqlqbEeKHq8',
+    title: '🌈 Magic Blocks Build a Rainbow Castle! 👑✨ #Shorts',
+    category: 'learning',
+    thumbnail: 'https://i.ytimg.com/vi/ZqlqbEeKHq8/hqdefault.jpg',
+    views: 'Rainbow Castle',
+  },
+  {
+    id: 'IKf6PyPuicE',
+    youtubeId: 'IKf6PyPuicE',
+    youtubeUrl: 'https://www.youtube.com/shorts/IKf6PyPuicE',
+    title: '😻 Cute White Kitten Bakes Yummy Cookies! 🍪💖 #Shorts',
+    category: 'stories',
+    thumbnail: 'https://i.ytimg.com/vi/IKf6PyPuicE/hqdefault.jpg',
+    views: 'Cookie Baking',
+  },
+  {
     id: 'yqGPyIS92Ho',
     youtubeId: 'yqGPyIS92Ho',
     youtubeUrl: 'https://www.youtube.com/shorts/yqGPyIS92Ho',
     title: 'The Cutest Bunny Plants a Carrot! 🐰🥕 #Shorts',
     category: 'stories',
     thumbnail: 'https://i.ytimg.com/vi/yqGPyIS92Ho/hqdefault.jpg',
-    views: 'Popular',
+    views: 'Carrot Garden',
   },
   {
     id: 'RIKI9dEf8Ew',
@@ -151,7 +214,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: '🐯 Leo’s Jungle Birthday Surprise! 🎂🎈 Cutest Animal Party Ever! #shorts',
     category: 'adventures',
     thumbnail: 'https://i.ytimg.com/vi/RIKI9dEf8Ew/hqdefault.jpg',
-    views: 'New',
+    views: 'Jungle Party',
   },
   {
     id: 'meaQ4C9hohg',
@@ -160,7 +223,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: 'माता पार्वती की Online Shopping 😂🙏 | Shiv Parvati & Ganesh Ji 3D Cartoon | Navratri Special',
     category: 'stories',
     thumbnail: 'https://i.ytimg.com/vi/meaQ4C9hohg/hqdefault.jpg',
-    views: 'Trending',
+    views: 'Festive Special',
   },
   {
     id: 'KdCJl-eM52I',
@@ -169,7 +232,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: '😂 Man Chased by a Lion Asks ChatGPT for Help! 🤣 #shorts',
     category: 'adventures',
     thumbnail: 'https://i.ytimg.com/vi/KdCJl-eM52I/hqdefault.jpg',
-    views: 'Funny Short',
+    views: 'Lion Comedy',
   },
   {
     id: 'hBfU03G-56M',
@@ -178,7 +241,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: '🚂 Magical Train Adventure for Kids 🌈 | Animals & Fun Cartoon #Shorts',
     category: 'adventures',
     thumbnail: 'https://i.ytimg.com/vi/hBfU03G-56M/hqdefault.jpg',
-    views: 'Popular',
+    views: 'Train Ride',
   },
   {
     id: 'qFque0qWi2I',
@@ -187,7 +250,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: 'Rain Rain Let’s Play! 🌧️☔ | Fun Rainy Day Song for Kids | Coco Kids World #shorts',
     category: 'songs',
     thumbnail: 'https://i.ytimg.com/vi/qFque0qWi2I/hqdefault.jpg',
-    views: 'Trending',
+    views: 'Rainy Song',
   },
   {
     id: 'I-e5acQ_C_w',
@@ -196,7 +259,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: '🌈 Learn Shapes for Kids | Square, Rectangle, Triangle & Star ⭐🔺 | Fun 3D Animation',
     category: 'learning',
     thumbnail: 'https://i.ytimg.com/vi/I-e5acQ_C_w/hqdefault.jpg',
-    views: 'Popular',
+    views: 'Learn Shapes',
   },
   {
     id: 'hvpMThqGW0A',
@@ -205,7 +268,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: '🌈 Learn Colors for Kids | Color Hunt Game 🔴🟡🔵🟢 | Fun 3D Animation',
     category: 'learning',
     thumbnail: 'https://i.ytimg.com/vi/hvpMThqGW0A/hqdefault.jpg',
-    views: 'Popular',
+    views: 'Color Hunt',
   },
   {
     id: 'BL6tCctBy1Y',
@@ -214,7 +277,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: '🐱 The Lost Red Ball | Cute Kitten & Friends | 3D Animated Story for Kids ⚽❤️',
     category: 'stories',
     thumbnail: 'https://i.ytimg.com/vi/BL6tCctBy1Y/hqdefault.jpg',
-    views: 'Popular',
+    views: 'Lost Ball Tale',
   },
   {
     id: 'syHFct0yj2Y',
@@ -223,7 +286,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: '🐘 The Little Elephant & The Tiny Umbrella ☔🌈 | Cute Cartoon Story for Kids',
     category: 'stories',
     thumbnail: 'https://i.ytimg.com/vi/syHFct0yj2Y/hqdefault.jpg',
-    views: 'Sweet Tale',
+    views: 'Tiny Umbrella',
   },
   {
     id: 'f7lbqSQ2u4Y',
@@ -232,7 +295,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: '🦋 Butterfly Song 🚌 | Funny Kids Nursery Rhyme 😂 #shorts',
     category: 'songs',
     thumbnail: 'https://i.ytimg.com/vi/f7lbqSQ2u4Y/hqdefault.jpg',
-    views: 'Joyful Rhyme',
+    views: 'Butterfly Rhyme',
   },
   {
     id: 'bjOiY2vsGq8',
@@ -241,7 +304,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: '🌳 Nature Is My Friend 🌸 | Fun Nature Song for Kids 🌈 | Kids Nursery Rhyme',
     category: 'songs',
     thumbnail: 'https://i.ytimg.com/vi/bjOiY2vsGq8/hqdefault.jpg',
-    views: 'Popular',
+    views: 'Nature Song',
   },
   {
     id: '1jJi5kxMGN8',
@@ -250,7 +313,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: '🔢 Count 1 to 10 for Kids 🎵 | Fun Counting Rhyme | Numbers 1-10',
     category: 'learning',
     thumbnail: 'https://i.ytimg.com/vi/1jJi5kxMGN8/hqdefault.jpg',
-    views: 'Counting Fun',
+    views: 'Count 1 to 10',
   },
   {
     id: 'ijn6PLLbYg0',
@@ -259,7 +322,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: '3 Words Kids Often Confuse! 🤔 | Learn the Difference | Fun 3D Educational Video',
     category: 'learning',
     thumbnail: 'https://i.ytimg.com/vi/ijn6PLLbYg0/hqdefault.jpg',
-    views: 'Popular',
+    views: 'Word Learning',
   },
   {
     id: 'H1MpIZmtJsw',
@@ -268,7 +331,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: '5 Amazing Shark Facts for Kids 🦈🌊 | Did You Know? | Kids Learning',
     category: 'learning',
     thumbnail: 'https://i.ytimg.com/vi/H1MpIZmtJsw/hqdefault.jpg',
-    views: 'Ocean Facts',
+    views: 'Shark Facts',
   },
   {
     id: 'NSl2PI7DhlM',
@@ -277,7 +340,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: 'India’s National Symbols for Kids | Animal, Bird, Fruit, Flower & More 🐯🦚🥭🌸',
     category: 'learning',
     thumbnail: 'https://i.ytimg.com/vi/NSl2PI7DhlM/hqdefault.jpg',
-    views: 'Popular',
+    views: 'National Symbols',
   },
   {
     id: 'PY5z7yzAu3c',
@@ -286,7 +349,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: '🎨 Learn Colors by Mixing Paints 🌈 | Fun Color Mixing for Kids',
     category: 'learning',
     thumbnail: 'https://i.ytimg.com/vi/PY5z7yzAu3c/hqdefault.jpg',
-    views: 'Color Magic',
+    views: 'Color Mixing',
   },
   {
     id: 'RNvwrCsdKZA',
@@ -295,7 +358,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: '🦋 Butterfly Life Cycle | From Egg to Beautiful Butterfly | 3D Animation',
     category: 'learning',
     thumbnail: 'https://i.ytimg.com/vi/RNvwrCsdKZA/hqdefault.jpg',
-    views: 'Science Story',
+    views: 'Life Cycle',
   },
   {
     id: 'yyfwsCOlEGY',
@@ -304,7 +367,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: 'Slow Turtle Wins the Race! 🐢😂 | Funny Cartoon Short',
     category: 'stories',
     thumbnail: 'https://i.ytimg.com/vi/yyfwsCOlEGY/hqdefault.jpg',
-    views: 'Moral Story',
+    views: 'Turtle Race',
   },
   {
     id: 'Rd-44VOYTbM',
@@ -313,7 +376,7 @@ export const YOUTUBE_SHORTS: ShortItem[] = [
     title: 'Panda Woke Up Early for NOTHING 😂🐼 | Funny Cartoon Short',
     category: 'stories',
     thumbnail: 'https://i.ytimg.com/vi/Rd-44VOYTbM/hqdefault.jpg',
-    views: 'Funny Short',
+    views: 'Sleepy Panda',
   },
 ];
 
