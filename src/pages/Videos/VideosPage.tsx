@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, Sparkles, Filter, Clock, Eye } from 'lucide-react';
+import { Sparkles, Filter, Clock, Eye } from 'lucide-react';
 import { PageHeader } from '../../components/common/PageHeader';
 import { SAMPLE_VIDEOS, YOUTUBE_SHORTS } from '../../data/sampleData';
 import { ShortsSlider } from '../../components/common/ShortsSlider';
@@ -98,7 +98,7 @@ export const VideosPage: React.FC = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
             gap: '28px',
           }}
         >
@@ -149,33 +149,6 @@ export const VideosPage: React.FC = () => {
                   transition: 'transform 0.3s ease',
                 }}
               />
-              {/* Play Overlay Button */}
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'rgba(0, 0, 0, 0.2)',
-                }}
-              >
-                <div
-                  style={{
-                    width: '56px',
-                    height: '56px',
-                    borderRadius: '50%',
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#EC4899',
-                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.25)',
-                  }}
-                >
-                  <Play size={24} fill="#EC4899" style={{ marginLeft: '4px' }} />
-                </div>
-              </div>
 
               {/* Duration Badge */}
               <div

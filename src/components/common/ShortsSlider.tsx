@@ -116,14 +116,16 @@ export const ShortsSlider: React.FC<ShortsSliderProps> = ({
   return (
     <section
       style={{
-        marginTop: '60px',
-        padding: 'clamp(24px, 4vw, 36px)',
+        marginTop: '48px',
+        padding: 'clamp(18px, 4vw, 36px)',
         background: 'linear-gradient(135deg, #FFF1F2 0%, #FAF5FF 50%, #EFF6FF 100%)',
-        borderRadius: '32px',
+        borderRadius: '28px',
         border: '3px solid #FFFFFF',
         boxShadow: '0 16px 36px rgba(236, 72, 153, 0.1)',
         position: 'relative',
         overflow: 'hidden',
+        boxSizing: 'border-box',
+        width: '100%',
       }}
     >
       {/* Decorative background bubbles */}
@@ -366,6 +368,7 @@ export const ShortsSlider: React.FC<ShortsSliderProps> = ({
         {canScrollLeft && (
           <button
             type="button"
+            className="slider-side-arrow"
             aria-label="Scroll left"
             onClick={() => handleScroll('left')}
             style={{
@@ -406,6 +409,7 @@ export const ShortsSlider: React.FC<ShortsSliderProps> = ({
         {canScrollRight && (
           <button
             type="button"
+            className="slider-side-arrow"
             aria-label="Scroll right"
             onClick={() => handleScroll('right')}
             style={{
@@ -1042,6 +1046,14 @@ export const ShortsSlider: React.FC<ShortsSliderProps> = ({
           </div>
         </div>
       )}
+
+      <style>{`
+        @media (max-width: 768px) {
+          .slider-side-arrow {
+            display: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };

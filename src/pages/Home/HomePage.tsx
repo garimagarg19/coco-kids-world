@@ -13,127 +13,145 @@ export const HomePage: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
       {/* Magical 3D Hero Section */}
       <section
+        className="home-hero-card"
         style={{
           position: 'relative',
           background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(243, 232, 255, 0.8) 50%, rgba(254, 240, 138, 0.4) 100%)',
-          borderRadius: '36px',
+          borderRadius: '32px',
           border: '4px solid #FFFFFF',
           boxShadow: '0 20px 40px -10px rgba(168, 85, 247, 0.15)',
-          padding: 'clamp(28px, 5vw, 54px)',
           overflow: 'hidden',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          alignItems: 'center',
-          gap: '36px',
+          width: '100%',
+          boxSizing: 'border-box',
         }}
       >
         {/* Left Hero Content */}
-        <div style={{ zIndex: 2 }}>
+        <div style={{ zIndex: 2, minWidth: 0, width: '100%' }}>
           {/* Welcome Pill */}
           <div
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              padding: '8px 18px',
+              padding: '6px 14px',
               borderRadius: '9999px',
               background: '#FFE4E9',
               color: '#E11D48',
               fontFamily: 'var(--font-display)',
               fontWeight: 700,
-              fontSize: '14px',
-              marginBottom: '20px',
+              fontSize: 'clamp(12px, 3.2vw, 14px)',
+              marginBottom: '16px',
               boxShadow: '0 4px 10px rgba(225, 29, 72, 0.15)',
+              maxWidth: '100%',
+              boxSizing: 'border-box',
             }}
           >
-            <span>🎈</span>
-            <span>Welcome to the Official Cartoon World</span>
+            <span style={{ flexShrink: 0 }}>🎈</span>
+            <span style={{ overflowWrap: 'break-word', wordBreak: 'break-word' }}>
+              Welcome to the Official Cartoon World
+            </span>
           </div>
 
           <h1
             style={{
-              fontSize: 'clamp(32px, 5vw, 52px)',
-              lineHeight: 1.12,
+              fontSize: 'clamp(24px, 4.5vw, 48px)',
+              lineHeight: 1.18,
               fontWeight: 700,
-              marginBottom: '18px',
-              background: 'linear-gradient(120deg, #1E293B 0%, #7C3AED 50%, #EC4899 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
+              marginBottom: '16px',
+              maxWidth: '100%',
+              overflowWrap: 'break-word',
+              wordBreak: 'break-word',
             }}
           >
-            Laugh, Sing & Explore in Coco’s Magical Cartoon Kingdom! 🌟
+            <span
+              style={{
+                background: 'linear-gradient(120deg, #1E293B 0%, #7C3AED 50%, #EC4899 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                display: 'inline',
+              }}
+            >
+              Laugh, Sing & Explore in Coco’s Magical Cartoon Kingdom!
+            </span>{' '}
+            <span style={{ display: 'inline-block' }}>🌟</span>
           </h1>
 
           <p
             style={{
-              fontSize: 'clamp(16px, 2.2vw, 19px)',
+              fontSize: 'clamp(15px, 2.2vw, 19px)',
               color: '#475569',
               lineHeight: 1.6,
-              marginBottom: '28px',
+              marginBottom: '24px',
               maxWidth: '520px',
+              overflowWrap: 'break-word',
             }}
           >
             Join Coco the Bunny, Leo the Lion, and cheerful friends for colorful adventures, cheerful rhymes, and joyful learning every single day.
           </p>
 
           {/* Action Buttons */}
-          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+          <div className="hero-action-buttons">
             <Link
               to="/videos"
+              className="hero-btn hero-btn-watch"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '10px',
-                padding: '14px 28px',
+                justifyContent: 'center',
+                gap: '8px',
                 borderRadius: '24px',
-                background: 'linear-gradient(135deg, #EC4899 0%, #D946EF 100%)',
+                background: 'linear-gradient(135deg, #FF4B82 0%, #EC4899 50%, #D946EF 100%)',
                 color: '#FFFFFF',
-                fontSize: '16px',
                 fontWeight: 700,
                 fontFamily: 'var(--font-display)',
-                boxShadow: '0 6px 0 #9D174D, 0 12px 20px rgba(236, 72, 153, 0.35)',
-                transition: 'transform 0.15s ease',
+                border: '2px solid #FFFFFF',
+                boxShadow: '0 5px 0 #9D174D, 0 10px 20px rgba(236, 72, 153, 0.32)',
+                transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+                textDecoration: 'none',
+                boxSizing: 'border-box',
               }}
               onMouseDown={(e) => {
-                e.currentTarget.style.transform = 'translateY(4px)';
-                e.currentTarget.style.boxShadow = '0 2px 0 #9D174D';
+                e.currentTarget.style.transform = 'translateY(3px)';
+                e.currentTarget.style.boxShadow = '0 2px 0 #9D174D, 0 4px 8px rgba(236, 72, 153, 0.22)';
               }}
               onMouseUp={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 6px 0 #9D174D, 0 12px 20px rgba(236, 72, 153, 0.35)';
+                e.currentTarget.style.boxShadow = '0 5px 0 #9D174D, 0 10px 20px rgba(236, 72, 153, 0.32)';
               }}
             >
-              <PlayCircle size={22} />
+              <PlayCircle size={20} fill="rgba(255,255,255,0.2)" color="#FFFFFF" style={{ flexShrink: 0 }} />
               <span>Watch Cartoons</span>
             </Link>
 
             <Link
               to="/songs-rhymes"
+              className="hero-btn hero-btn-sing"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '10px',
-                padding: '14px 24px',
+                justifyContent: 'center',
+                gap: '8px',
                 borderRadius: '24px',
-                background: '#FEF3C7',
-                color: '#B45309',
-                fontSize: '16px',
+                background: 'linear-gradient(135deg, #FDE047 0%, #F59E0B 100%)',
+                color: '#78350F',
                 fontWeight: 700,
                 fontFamily: 'var(--font-display)',
-                border: '2px solid #FDE68A',
-                boxShadow: '0 4px 14px rgba(245, 158, 11, 0.15)',
-                transition: 'all 0.2s ease',
+                border: '2px solid #FFFFFF',
+                boxShadow: '0 5px 0 #B45309, 0 10px 20px rgba(245, 158, 11, 0.28)',
+                transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+                textDecoration: 'none',
+                boxSizing: 'border-box',
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.backgroundColor = '#FDE68A';
+              onMouseDown={(e) => {
+                e.currentTarget.style.transform = 'translateY(3px)';
+                e.currentTarget.style.boxShadow = '0 2px 0 #B45309, 0 4px 8px rgba(245, 158, 11, 0.2)';
               }}
-              onMouseLeave={(e) => {
+              onMouseUp={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.backgroundColor = '#FEF3C7';
+                e.currentTarget.style.boxShadow = '0 5px 0 #B45309, 0 10px 20px rgba(245, 158, 11, 0.28)';
               }}
             >
-              <Music size={20} />
+              <Music size={19} color="#78350F" style={{ flexShrink: 0 }} />
               <span>Sing Songs</span>
             </Link>
           </div>
@@ -146,6 +164,8 @@ export const HomePage: React.FC = () => {
             justifyContent: 'center',
             alignItems: 'center',
             position: 'relative',
+            width: '100%',
+            minWidth: 0,
           }}
         >
           {/* Animated 3D Mascot Card */}
@@ -154,14 +174,16 @@ export const HomePage: React.FC = () => {
             style={{
               position: 'relative',
               width: '100%',
-              maxWidth: '380px',
+              maxWidth: '340px',
               aspectRatio: '1',
-              borderRadius: '32px',
-              padding: '12px',
+              borderRadius: '28px',
+              padding: '10px',
               background: 'linear-gradient(135deg, #FFFFFF, #E0F2FE)',
-              boxShadow: '0 20px 40px rgba(56, 189, 248, 0.25)',
+              boxShadow: '0 16px 36px rgba(56, 189, 248, 0.22)',
               border: '4px solid #FFFFFF',
               overflow: 'hidden',
+              boxSizing: 'border-box',
+              margin: '0 auto',
             }}
           >
             <img
@@ -171,34 +193,37 @@ export const HomePage: React.FC = () => {
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                borderRadius: '24px',
+                borderRadius: '20px',
+                display: 'block',
               }}
             />
             {/* Mascot floating ribbon */}
             <div
               style={{
                 position: 'absolute',
-                bottom: '24px',
+                bottom: '16px',
                 left: '50%',
                 transform: 'translateX(-50%)',
                 background: 'rgba(255, 255, 255, 0.95)',
                 backdropFilter: 'blur(8px)',
-                padding: '8px 20px',
+                padding: '6px 16px',
                 borderRadius: '9999px',
                 border: '2px solid #FBCFE8',
                 boxShadow: '0 6px 16px rgba(0, 0, 0, 0.08)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px',
+                gap: '6px',
                 whiteSpace: 'nowrap',
+                maxWidth: '92%',
+                boxSizing: 'border-box',
               }}
             >
-              <Sparkles size={16} color="#EC4899" />
+              <Sparkles size={15} color="#EC4899" />
               <span
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontWeight: 700,
-                  fontSize: '14px',
+                  fontSize: 'clamp(12px, 3.2vw, 14px)',
                   color: '#BE185D',
                 }}
               >
@@ -213,13 +238,15 @@ export const HomePage: React.FC = () => {
       <section
         style={{
           position: 'relative',
-          borderRadius: '32px',
+          borderRadius: '28px',
           overflow: 'hidden',
           boxShadow: '0 16px 36px rgba(99, 102, 241, 0.12)',
           border: '3px solid #FFFFFF',
+          width: '100%',
+          boxSizing: 'border-box',
         }}
       >
-        <div style={{ position: 'relative', width: '100%', height: '320px' }}>
+        <div style={{ position: 'relative', width: '100%', minHeight: '260px', height: 'clamp(260px, 35vw, 320px)' }}>
           <img
             src="/magical-world.jpg"
             alt="Magical World of Coco Kids"
@@ -227,18 +254,21 @@ export const HomePage: React.FC = () => {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
+              position: 'absolute',
+              inset: 0,
             }}
           />
           <div
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(30, 27, 75, 0.75) 100%)',
+              background: 'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(30, 27, 75, 0.8) 100%)',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'flex-end',
-              padding: 'clamp(20px, 4vw, 36px)',
+              padding: 'clamp(16px, 4vw, 36px)',
               color: '#FFFFFF',
+              boxSizing: 'border-box',
             }}
           >
             <div
@@ -251,7 +281,8 @@ export const HomePage: React.FC = () => {
                 padding: '6px 14px',
                 borderRadius: '16px',
                 width: 'fit-content',
-                fontSize: '13px',
+                maxWidth: '100%',
+                fontSize: 'clamp(11px, 3vw, 13px)',
                 fontWeight: 700,
                 fontFamily: 'var(--font-display)',
                 marginBottom: '8px',
@@ -259,10 +290,10 @@ export const HomePage: React.FC = () => {
             >
               🌈 A Land of Wonder & Play
             </div>
-            <h2 style={{ fontSize: 'clamp(22px, 3.5vw, 34px)', color: '#FFFFFF', marginBottom: '8px' }}>
+            <h2 style={{ fontSize: 'clamp(20px, 3.5vw, 32px)', color: '#FFFFFF', marginBottom: '8px', lineHeight: 1.25, overflowWrap: 'break-word' }}>
               Step Into the Floating Island of Sweet Songs & Stories
             </h2>
-            <p style={{ maxWidth: '600px', fontSize: '15px', color: '#E0E7FF' }}>
+            <p style={{ maxWidth: '600px', fontSize: 'clamp(13px, 2.5vw, 15px)', color: '#E0E7FF', overflowWrap: 'break-word' }}>
               Explore candy hills, marshmallow clouds, and sparkling waterfalls with Coco and friends.
             </p>
           </div>
@@ -331,8 +362,10 @@ export const HomePage: React.FC = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: '24px',
+            width: '100%',
+            boxSizing: 'border-box',
           }}
         >
           {YOUTUBE_VIDEOS.slice(0, 3).map((video) => (
@@ -380,32 +413,6 @@ export const HomePage: React.FC = () => {
                     objectFit: 'cover',
                   }}
                 />
-                <div
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'rgba(0, 0, 0, 0.2)',
-                  }}
-                >
-                  <div
-                    style={{
-                      width: '50px',
-                      height: '50px',
-                      borderRadius: '50%',
-                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#EC4899',
-                      boxShadow: '0 4px 14px rgba(0, 0, 0, 0.25)',
-                    }}
-                  >
-                    <Play size={20} fill="#EC4899" style={{ marginLeft: '3px' }} />
-                  </div>
-                </div>
 
                 <div
                   style={{
@@ -530,8 +537,10 @@ export const HomePage: React.FC = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
             gap: '20px',
+            width: '100%',
+            boxSizing: 'border-box',
           }}
         >
           {/* Card 1: Videos */}
@@ -772,18 +781,20 @@ export const HomePage: React.FC = () => {
       <section
         style={{
           background: 'linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 50%, #FCE7F3 100%)',
-          borderRadius: '32px',
+          borderRadius: '28px',
           border: '3px solid #FECDD3',
-          padding: 'clamp(24px, 4vw, 40px)',
+          padding: 'clamp(20px, 4vw, 40px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: '24px',
+          gap: '20px',
           boxShadow: '0 12px 28px rgba(244, 63, 94, 0.12)',
+          boxSizing: 'border-box',
+          width: '100%',
         }}
       >
-        <div style={{ maxWidth: '580px' }}>
+        <div style={{ maxWidth: '580px', minWidth: 0, width: '100%' }}>
           <div
             style={{
               display: 'inline-flex',
@@ -796,16 +807,16 @@ export const HomePage: React.FC = () => {
               fontSize: '12px',
               fontWeight: 700,
               fontFamily: 'var(--font-display)',
-              marginBottom: '12px',
+              marginBottom: '10px',
             }}
           >
             <YoutubeIcon size={16} fill="#FFFFFF" />
             <span>Official YouTube Channel</span>
           </div>
-          <h2 style={{ fontSize: 'clamp(22px, 3.5vw, 30px)', color: '#881337', marginBottom: '8px' }}>
+          <h2 style={{ fontSize: 'clamp(20px, 3.5vw, 30px)', color: '#881337', marginBottom: '8px', lineHeight: 1.25, overflowWrap: 'break-word' }}>
             Subscribe to Coco Kids World on YouTube! 📺
           </h2>
-          <p style={{ color: '#9F1239', fontSize: '15px', lineHeight: 1.6 }}>
+          <p style={{ color: '#9F1239', fontSize: '14.5px', lineHeight: 1.6, overflowWrap: 'break-word' }}>
             Never miss a new episode! New songs and animated stories are published every week in crystal clear animation.
           </p>
         </div>
@@ -817,30 +828,107 @@ export const HomePage: React.FC = () => {
           style={{
             display: 'inline-flex',
             alignItems: 'center',
+            justifyContent: 'center',
             gap: '10px',
-            padding: '16px 32px',
-            borderRadius: '24px',
+            padding: '14px 28px',
+            borderRadius: '22px',
             background: '#FF0000',
             color: '#FFFFFF',
-            fontSize: '17px',
+            fontSize: 'clamp(15px, 3.5vw, 17px)',
             fontWeight: 700,
             fontFamily: 'var(--font-display)',
-            boxShadow: '0 6px 0 #991B1B, 0 12px 24px rgba(239, 68, 68, 0.35)',
+            boxShadow: '0 5px 0 #991B1B, 0 10px 20px rgba(239, 68, 68, 0.35)',
             transition: 'transform 0.15s ease',
+            maxWidth: '100%',
+            boxSizing: 'border-box',
           }}
           onMouseDown={(e) => {
-            e.currentTarget.style.transform = 'translateY(4px)';
+            e.currentTarget.style.transform = 'translateY(3px)';
             e.currentTarget.style.boxShadow = '0 2px 0 #991B1B';
           }}
           onMouseUp={(e) => {
             e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 6px 0 #991B1B, 0 12px 24px rgba(239, 68, 68, 0.35)';
+            e.currentTarget.style.boxShadow = '0 5px 0 #991B1B, 0 10px 20px rgba(239, 68, 68, 0.35)';
           }}
         >
-          <YoutubeIcon size={24} fill="#FFFFFF" />
+          <YoutubeIcon size={22} fill="#FFFFFF" />
           <span>Subscribe Now (Free)</span>
         </a>
       </section>
+
+      {/* Responsive Styles for Home Hero Section */}
+      <style>{`
+        .home-hero-card {
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
+          align-items: center;
+          gap: 36px;
+          padding: clamp(24px, 4.5vw, 54px);
+        }
+        .hero-action-buttons {
+          display: flex;
+          gap: 14px;
+          flex-wrap: wrap;
+          align-items: center;
+        }
+        .hero-btn {
+          padding: 13px 26px;
+          font-size: 15.5px;
+        }
+        .hero-btn:hover {
+          transform: translateY(-2px);
+          filter: brightness(1.04);
+        }
+        @media (max-width: 860px) {
+          .home-hero-card {
+            grid-template-columns: 1fr !important;
+            gap: 28px !important;
+            padding: 24px 18px !important;
+            border-radius: 28px !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .hero-action-buttons {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 10px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+          .hero-btn {
+            padding: 12px 6px !important;
+            font-size: clamp(12px, 3.4vw, 14px) !important;
+            gap: 6px !important;
+            border-radius: 20px !important;
+            letter-spacing: -0.01em;
+          }
+          .hero-btn svg {
+            width: 17px !important;
+            height: 17px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .home-hero-card {
+            padding: 20px 14px !important;
+            border-radius: 24px !important;
+            gap: 22px !important;
+          }
+        }
+        @media (max-width: 340px) {
+          .hero-action-buttons {
+            gap: 6px !important;
+          }
+          .hero-btn {
+            padding: 10px 4px !important;
+            font-size: 11px !important;
+            gap: 4px !important;
+          }
+          .hero-btn svg {
+            width: 14px !important;
+            height: 14px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };

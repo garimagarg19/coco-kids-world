@@ -26,10 +26,11 @@ export const Layout: React.FC = () => {
           position: 'relative',
           zIndex: 1,
           flex: 1,
-          width: '95%',
+          width: '100%',
           maxWidth: '1240px',
           margin: '0 auto',
-          padding: '24px 8px 60px',
+          padding: 'clamp(16px, 3vw, 24px) clamp(10px, 3vw, 16px) 60px',
+          boxSizing: 'border-box',
         }}
       >
         <Outlet />

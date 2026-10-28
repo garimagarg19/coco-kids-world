@@ -36,12 +36,14 @@ export const Navbar: React.FC = () => {
         top: '12px',
         zIndex: 50,
         margin: '0 auto',
-        width: '95%',
+        width: '100%',
         maxWidth: '1260px',
-        padding: '0 8px',
+        padding: '0 clamp(10px, 3vw, 16px)',
+        boxSizing: 'border-box',
       }}
     >
       <div
+        className="navbar-container"
         style={{
           background: 'rgba(255, 255, 255, 0.94)',
           backdropFilter: 'blur(16px)',
@@ -54,6 +56,7 @@ export const Navbar: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: '12px',
+          boxSizing: 'border-box',
         }}
       >
         {/* Brand Logo & One-Line Name */}
@@ -100,8 +103,9 @@ export const Navbar: React.FC = () => {
             />
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', flexShrink: 0 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', flexShrink: 1, minWidth: 0 }}>
             <span
+              className="brand-title"
               style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: '18px',
@@ -117,6 +121,7 @@ export const Navbar: React.FC = () => {
               Coco Kids World
             </span>
             <span
+              className="brand-subtitle"
               style={{
                 fontFamily: 'var(--font-body)',
                 fontSize: '10px',
@@ -188,14 +193,17 @@ export const Navbar: React.FC = () => {
         </nav>
 
         {/* Action Buttons: YouTube & Mobile Menu */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0, marginLeft: '4px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
           <a
             href="https://youtube.com/@CocoKidsWorld-h1o"
             target="_blank"
             rel="noopener noreferrer"
+            className="yt-btn"
+            title="Subscribe on YouTube"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: '6px',
               padding: '7px 14px',
               backgroundColor: '#FF0000',
@@ -232,12 +240,13 @@ export const Navbar: React.FC = () => {
               display: 'none',
               alignItems: 'center',
               justifyContent: 'center',
-              width: '40px',
-              height: '40px',
+              width: '38px',
+              height: '38px',
               borderRadius: '14px',
               background: '#F3E8FF',
               color: '#7C3AED',
               border: '2px solid #E9D5FF',
+              flexShrink: 0,
             }}
           >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -310,9 +319,25 @@ export const Navbar: React.FC = () => {
             display: flex !important;
           }
         }
-        @media (max-width: 500px) {
+        @media (max-width: 640px) {
           .yt-text {
-            display: none;
+            display: none !important;
+          }
+          .yt-btn {
+            padding: 0 !important;
+            width: 38px !important;
+            height: 38px !important;
+            border-radius: 12px !important;
+          }
+          .brand-title {
+            font-size: 16px !important;
+          }
+          .brand-subtitle {
+            font-size: 9px !important;
+          }
+          .navbar-container {
+            padding: 6px 12px !important;
+            border-radius: 20px !important;
           }
         }
       `}</style>
