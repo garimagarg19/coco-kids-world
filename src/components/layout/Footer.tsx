@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, ShieldCheck, Star } from 'lucide-react';
+import { Heart, ShieldCheck, Star, Mail } from 'lucide-react';
 import { YoutubeIcon } from '../common/YoutubeIcon';
 import { InstagramIcon } from '../common/InstagramIcon';
 import { CHARACTERS } from '../../data/characters';
@@ -211,6 +211,42 @@ export const Footer: React.FC = () => {
                 }}
               >
                 <InstagramIcon size={20} />
+              </a>
+
+              <a
+                href="mailto:cocokidsworld986@gmail.com"
+                title="Send an Email (cocokidsworld986@gmail.com)"
+                aria-label="Send email to Coco Kids World"
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '14px',
+                  background: '#EFF6FF',
+                  color: '#3B82F6',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '1.5px solid #BFDBFE',
+                  boxShadow: '0 2px 8px rgba(59, 130, 246, 0.15)',
+                  transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                  textDecoration: 'none',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-3px) scale(1.08)';
+                  e.currentTarget.style.background = '#3B82F6';
+                  e.currentTarget.style.color = '#FFFFFF';
+                  e.currentTarget.style.borderColor = 'transparent';
+                  e.currentTarget.style.boxShadow = '0 6px 14px rgba(59, 130, 246, 0.35)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.background = '#EFF6FF';
+                  e.currentTarget.style.color = '#3B82F6';
+                  e.currentTarget.style.borderColor = '#BFDBFE';
+                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(59, 130, 246, 0.15)';
+                }}
+              >
+                <Mail size={20} />
               </a>
             </div>
           </div>
