@@ -195,7 +195,7 @@ export const Navbar: React.FC = () => {
         {/* Action Buttons: YouTube & Mobile Menu */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
           <a
-            href="https://youtube.com/@CocoKidsWorld-h1o"
+            href="https://www.youtube.com/@CocoKidsWorld-h1o"
             target="_blank"
             rel="noopener noreferrer"
             className="yt-btn"

@@ -140,7 +140,7 @@ export const Footer: React.FC = () => {
             </p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <a
-                href="https://youtube.com/@CocoKidsWorld-h1o"
+                href="https://www.youtube.com/@CocoKidsWorld-h1o"
                 target="_blank"
                 rel="noreferrer"
                 title="Watch on YouTube"

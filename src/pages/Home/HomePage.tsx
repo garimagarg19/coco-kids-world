@@ -822,7 +822,7 @@ export const HomePage: React.FC = () => {
         </div>
 
         <a
-          href="https://youtube.com/@CocoKidsWorld-h1o"
+          href="https://www.youtube.com/@CocoKidsWorld-h1o"
           target="_blank"
           rel="noreferrer"
           style={{

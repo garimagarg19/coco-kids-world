@@ -3,7 +3,7 @@ import { VideoItem, ChannelInfo, ShortItem } from '../types';
 export const CHANNEL_INFO: ChannelInfo = {
   title: 'Coco Kids World',
   handle: '@CocoKidsWorld-h1o',
-  channelUrl: 'https://youtube.com/@CocoKidsWorld-h1o',
+  channelUrl: 'https://www.youtube.com/@CocoKidsWorld-h1o',
   instagramUrl: 'https://www.instagram.com/cocokidsworld986/',
   avatarUrl: '/channel-avatar.jpg',
   subscribersBadge: 'Official YouTube Channel',
